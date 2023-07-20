@@ -1,11 +1,3 @@
--- since this is just an example spec, don't actually load anything here and return an empty spec
--- stylua: ignore
-if true then
-    return {}
-end
-
--- every spec file under config.plugins will be loaded automatically by lazy.nvim
---
 -- In your plugin files, you can:
 -- * add extra plugins
 -- * disable/enabled LazyVim plugins
@@ -19,24 +11,6 @@ return {
             vim.g.startuptime_tries = 10
         end,
     },
-    { "p00f/nvim-ts-rainbow" },
-    {
-        "tmux-navigator",
-        config = function()
-            require('tmux-navigator').setup { enable = true }
-        end
-    },
-    { "saadparwaiz1/cmp_luasnip" },
-    {
-        "hrsh7th/cmp-nvim-lsp",
-        cond = function()
-            return require("lazyvim.util").has("nvim-cmp")
-        end,
-    },
-    { "rafamadriz/friendly-snippets" },
-    {
-        "hrsh7th/cmp-path" -- 文件路径
-    },
     {
         "williamboman/nvim-lsp-installer",
         opts = {
@@ -49,5 +23,10 @@ return {
                 }
             }
         }
+    },
+    {
+     "tzachar/cmp-tabnine",
+        build = './install.sh',
+        dependencies = 'hrsh7th/nvim-cmp',
     }
 }

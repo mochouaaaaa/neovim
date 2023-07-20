@@ -38,10 +38,10 @@ keymap.set("n", "<leader>e", ":NvimTreeToggle<CR>")
 --keymap.set("n", "<C-h>", ":BufferLineCyclePrev<CR>")
 
 -- lazy的keys配置很容易被覆盖 并且不知道被哪个配置给覆盖，所以设定为全局
-local builtin = require('telescope.builtin')
+-- local builtin = require('telescope.builtin')
 -- 进入telescope页面会是插入模式，回到正常模式就可以用j和k来移动了
-keymap.set('n', '<leader>ff', builtin.find_files, {})
-keymap.set('n', '<leader>fg', builtin.live_grep, {})  -- 环境里要安装ripgrep
-keymap.set('n', '<leader>fb', builtin.buffers, {})
-keymap.set('n', '<leader>fh', builtin.help_tags, {})
-
+--keymap.set('n', '<leader>ff', builtin.find_files, {})
+--keymap.set('n', '<leader>fg', builtin.live_grep, {})  -- 环境里要安装ripgrep
+--keymap.set('n', '<leader>fb', builtin.buffers, {})
+--keymap.set('n', '<leader>fh', builtin.help_tags, {})
+--
