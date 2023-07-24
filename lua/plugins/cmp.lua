@@ -28,12 +28,7 @@ function M.config()
             and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match('%s') == nil
     end
 
-    local check_backspace = function()
-        local col = vim.fn.col "." - 1
-        return col == 0 or vim.fn.getline("."):sub(col, col):match "%s"
-    end
-
-    require('luasnip.loaders.from_vscode').lazy_load({ paths = '~/.config/nvim/my_snippets' })
+    require('luasnip.loaders.from_vscode').lazy_load()
 
     cmp.setup({
         enabled = function()
@@ -147,36 +142,36 @@ function M.config()
                 return vim_item
             end,
         },
-         mapping = cmp.mapping.preset.insert({
-                ['<C-b>'] = cmp.mapping.scroll_docs(-4),
-                ['<C-f>'] = cmp.mapping.scroll_docs(4),
-                ['<C-e>'] = cmp.mapping.abort(), -- 取消补全，esc也可以退出
-                ['<CR>'] = cmp.mapping.confirm({ select = true }),
+        mapping = cmp.mapping.preset.insert({
+            ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+            ['<C-f>'] = cmp.mapping.scroll_docs(4),
+            ['<C-e>'] = cmp.mapping.abort(), -- 取消补全，esc也可以退出
+            ['<CR>'] = cmp.mapping.confirm({ select = true }),
 
-                ["<Tab>"] = cmp.mapping(function(fallback)
-                    if cmp.visible() then
-                        cmp.select_next_item()
-                    elseif luasnip.expand_or_jumpable() then
-                        luasnip.expand_or_jump()
-                    elseif has_words_before() then
-                        cmp.complate()
-                    elseif luasnip.expandable() then
-                        luasnip.expand()
-                    else
-                        fallback()
-                    end
-                end, { "i", "s" }),
+            ["<Tab>"] = cmp.mapping(function(fallback)
+                if cmp.visible() then
+                    cmp.select_next_item()
+                elseif luasnip.expand_or_jumpable() then
+                    luasnip.expand_or_jump()
+                elseif has_words_before() then
+                    cmp.complate()
+                elseif luasnip.expandable() then
+                    luasnip.expand()
+                else
+                    fallback()
+                end
+            end, { "i", "s" }),
 
-                ["<S-Tab>"] = cmp.mapping(function(fallback)
-                    if cmp.visible() then
-                        cmp.select_prev_item()
-                    elseif luasnip.jumpable(-1) then
-                        luasnip.jump(-1)
-                    else
-                        fallback()
-                    end
-                end, { "i", "s" })
-            }),
+            ["<S-Tab>"] = cmp.mapping(function(fallback)
+                if cmp.visible() then
+                    cmp.select_prev_item()
+                elseif luasnip.jumpable(-1) then
+                    luasnip.jump(-1)
+                else
+                    fallback()
+                end
+            end, { "i", "s" })
+        }),
 
         -- You can set mappings if you want
         -- mapping = insert_map,
@@ -185,13 +180,13 @@ function M.config()
                 require('luasnip').lsp_expand(args.body)
             end,
         },
-        sources = {
-            { name = 'nvim_lsp', priority = 50 },
-            { name = 'cmp_tabnine', priority = 90 },
-            { name = 'luasnip', priority = 50 },
-            { name = 'path', priority = 99 },
-            { name = 'buffer', priority = 50, max_item_count = 5 },
-            { name = 'emoji', priority = 50 },
+        sources = cmp.config.sources({
+            { name = 'nvim_lsp',                priority = 50 },
+            { name = 'cmp_tabnine',             priority = 90 },
+            { name = 'luasnip',                 priority = 50 },
+            { name = 'path',                    priority = 99 },
+            { name = 'buffer',                  priority = 50, max_item_count = 5 },
+            { name = 'emoji',                   priority = 50 },
             { name = 'nvim_lsp_signature_help', priority = 50 },
             {
                 name = 'look',
@@ -203,12 +198,13 @@ function M.config()
                     --dict = '/usr/share/dict/words'
                 },
             },
-        },
+        }),
     })
 
     cmp.setup.filetype({ 'TelescopePrompt' }, {
         sources = {},
     })
+
     cmp.setup.filetype({ 'vim', 'markdown' }, {
         sources = {
             {
@@ -223,90 +219,6 @@ function M.config()
             },
         },
     })
-
-    -- require("cmp").setup.cmdline(":", {
-    --     sources = {
-    --         { name = "cmdline", max_item_count = 10 },
-    --     },
-    -- })
-    -- require("cmp").setup.cmdline("/", {
-    --     sources = {
-    --         { name = "buffer" },
-    --     },
-    -- })
-    --
 end
 
 return M
-
-
--- return {
---     "hrsh7th/nvim-cmp",
---     dependencies = { "hrsh7th/cmp-emoji", "hrsh7th/cmp-nvim-lsp" },
-
---     opts = function(_, opts)
---         local cmp_status_ok, cmp = pcall(require, "cmp")
---         if not cmp_status_ok then
---             return
---         end
-
---         local snip_status_ok, luasnip = pcall(require, "luasnip")
---         if not snip_status_ok then
---             return
---         end
-
---         require("luasnip.loaders.from_vscode").lazy_load()
-
---         -- 下面会用到这个函数
---         local check_backspace = function()
---             local col = vim.fn.col "." - 1
---             return col == 0 or vim.fn.getline("."):sub(col, col):match "%s"
---         end
-
---         return {
---             snippet = {
---                 expand = function(args)
---                     require('luasnip').lsp_expand(args.body)
---                 end
---             },
---             mapping = cmp.mapping.preset.insert({
---                 ['<C-b>'] = cmp.mapping.scroll_docs(-4),
---                 ['<C-f>'] = cmp.mapping.scroll_docs(4),
---                 ['<C-e>'] = cmp.mapping.abort(), -- 取消补全，esc也可以退出
---                 ['<CR>'] = cmp.mapping.confirm({ select = true }),
-
---                 ["<Tab>"] = cmp.mapping(function(fallback)
---                     if cmp.visible() then
---                         cmp.select_next_item()
---                     elseif luasnip.expandable() then
---                         luasnip.expand()
---                     elseif luasnip.expand_or_jumpable() then
---                         luasnip.expand_or_jump()
---                     elseif check_backspace() then
---                         fallback()
---                     else
---                         fallback()
---                     end
---                 end, { "i", "s" }),
-
---                 ["<S-Tab>"] = cmp.mapping(function(fallback)
---                     if cmp.visible() then
---                         cmp.select_prev_item()
---                     elseif luasnip.jumpable(-1) then
---                         luasnip.jump(-1)
---                     else
---                         fallback()
---                     end
---                 end, { "i", "s" })
---             }),
---             -- 这里重要
---             sources = cmp.config.sources(
---                 {
---                     { name = 'nvim_lsp' }, { name = 'luasnip' }, { name = 'path' }
---                 }, {
---                     { name = 'buffer' }
---                 }
---             ),
---         }
---     end
--- }

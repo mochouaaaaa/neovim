@@ -32,6 +32,8 @@ local M = {
 
 
 function M.config()
+    vim.opt.termguicolors = true
+
     if vim.g.started_by_firenvim then
         return
     end
@@ -105,7 +107,7 @@ function M.config()
             --     return true
             --   end
             -- end,
-            offsets = { { filetype = 'NvimTree', text = 'File Explorer', padding = 1 } },
+            offsets = { { filetype = 'NvimTree', text = 'File Explorer', highlight = "Directory", text_align = "left", padding = 1 } },
             show_buffer_icons = true,
             show_buffer_close_icons = true,
             show_close_icon = true,

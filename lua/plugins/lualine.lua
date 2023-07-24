@@ -1,5 +1,5 @@
 local M = {
-	'nvim-lualine/lualine.nvim',
+    'nvim-lualine/lualine.nvim',
     event = 'VeryLazy'
 }
 
@@ -42,7 +42,7 @@ function M.config()
         local current_line = vim.fn.line('.')
         local total_lines = vim.fn.line('$')
         local chars =
-            { '__', '▁▁', '▂▂', '▃▃', '▄▄', '▅▅', '▆▆', '▇▇', '██' }
+        { '__', '▁▁', '▂▂', '▃▃', '▄▄', '▅▅', '▆▆', '▇▇', '██' }
         local line_ratio = current_line / total_lines
         local index = math.ceil(line_ratio * #chars)
 
@@ -90,8 +90,8 @@ function M.config()
             lualine_c = {
                 {
                     'filename',
-                    file_status = true, -- displays file status (readonly status, modified status)
-                    path = 1, -- 0 = just filename, 1 = relative path, 2 = absolute path
+                    file_status = true,   -- displays file status (readonly status, modified status)
+                    path = 1,             -- 0 = just filename, 1 = relative path, 2 = absolute path
                     shorting_target = 30, -- Shortens path to leave 40 space in the window
                     -- for other components. Terrible name any suggestions?
                 },
@@ -102,7 +102,7 @@ function M.config()
                 -- "fileformat",
                 {
                     'filetype',
-                    colored = true, -- displays filetype icon in color if set to `true
+                    colored = true,    -- displays filetype icon in color if set to `true
                     icon_only = false, -- Display only icon for filetype
                 },
                 {
@@ -124,8 +124,8 @@ function M.config()
             lualine_c = {
                 {
                     'filename',
-                    file_status = true, -- displays file status (readonly status, modified status)
-                    path = 2, -- 0 = just filename, 1 = relative path, 2 = absolute path
+                    file_status = true,   -- displays file status (readonly status, modified status)
+                    path = 2,             -- 0 = just filename, 1 = relative path, 2 = absolute path
                     shorting_target = 30, -- Shortens path to leave 40 space in the window
                     -- for other components. Terrible name any suggestions?
                 },
@@ -143,85 +143,3 @@ function M.config()
 end
 
 return M
-
--- return {
--- 	"nvim-lualine/lualine.nvim",
--- 	event = "VeryLazy",
--- 	opts = function()
--- 		local icons = require("lazyvim.config").icons
--- 		local Util = require("lazyvim.util")
-
--- 		return {
--- 			options = {
--- 				theme = "auto",
--- 				globalstatus = true,
--- 				disabled_filetypes = { statusline = { "dashboard", "alpha" } },
--- 			},
--- 			sections = {
--- 				lualine_a = { "mode" },
--- 				lualine_b = { "branch" },
--- 				lualine_c = {
--- 					{
--- 						"diagnostics",
--- 						symbols = {
--- 							error = icons.diagnostics.Error,
--- 							warn = icons.diagnostics.Warn,
--- 							info = icons.diagnostics.Info,
--- 							hint = icons.diagnostics.Hint,
--- 						},
--- 					},
--- 					{ "filetype", icon_only = true, separator = "", padding = { left = 1, right = 0 } },
--- 					{ "filename", path = 1, symbols = { modified = "  ", readonly = "", unnamed = "" } },
---           -- stylua: ignore
---           {
---             function() return require("nvim-navic").get_location() end,
---             cond = function() return package.loaded["nvim-navic"] and require("nvim-navic").is_available() end,
---           },
--- 				},
--- 				lualine_x = {
---           -- stylua: ignore
---           {
---             function() return require("noice").api.status.command.get() end,
---             cond = function() return package.loaded["noice"] and require("noice").api.status.command.has() end,
---             color = Util.fg("Statement"),
---           },
---           -- stylua: ignore
---           {
---             function() return require("noice").api.status.mode.get() end,
---             cond = function() return package.loaded["noice"] and require("noice").api.status.mode.has() end,
---             color = Util.fg("Constant"),
---           },
---           -- stylua: ignore
---           {
---             function() return "  " .. require("dap").status() end,
---             cond = function () return package.loaded["dap"] and require("dap").status() ~= "" end,
---             color = Util.fg("Debug"),
---           },
--- 					{
--- 						require("lazy.status").updates,
--- 						cond = require("lazy.status").has_updates,
--- 						color = Util.fg("Special"),
--- 					},
--- 					{
--- 						"diff",
--- 						symbols = {
--- 							added = icons.git.added,
--- 							modified = icons.git.modified,
--- 							removed = icons.git.removed,
--- 						},
--- 					},
--- 				},
--- 				lualine_y = {
--- 					{ "progress", separator = " ", padding = { left = 1, right = 0 } },
--- 					{ "location", padding = { left = 0, right = 1 } },
--- 				},
--- 				lualine_z = {
--- 					function()
--- 						return " " .. os.date("%R")
--- 					end,
--- 				},
--- 			},
--- 			extensions = { "neo-tree", "lazy" },
--- 		}
--- 	end,
--- }

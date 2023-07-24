@@ -1,23 +1,21 @@
--- 自动打开括号
-return {
+local M = {
     "windwp/nvim-autopairs",
+}
 
-    opts = function(_, opts)
-        local npairs_ok, npairs = pcall(require, "nvim-autopairs")
-        if not npairs_ok then return end
 
-        -- 配置这个使得自动补全会把括号带上
-        local cmp_autopairs = require('nvim-autopairs.completion.cmp')
-        local cmp = require('cmp')
+function M.config()
+    local npairs_ok, npairs = pcall(require, "nvim-autopairs")
+    if not npairs_ok then
+        return
+    end
 
-        cmp.event:on('confirm_done', cmp_autopairs.on_confirm_done())
-
-        opts.check_ts = true
-        opts.ts_config = {
+    npairs.setup({
+        check_ts = true,
+        ts_config = {
             lua = {"string", "source"},
             javascript = {"string", "template_string"}
-        }
-        opts.fast_wrap = {
+        },
+        fast_wrap = {
             map = '<M-e>',
             chars = {'{', '[', '(', '"', "'"},
             pattern = [=[[%'%"%)%>%]%)%}%,]]=],
@@ -27,5 +25,17 @@ return {
             highlight = 'Search',
             highlight_grey = 'Comment'
         }
+    })
+
+    local cmp_autopairs = require "nvim-autopairs.completion.cmp"
+    local cmp_status_ok, cmp = pcall(require, "cmp")
+
+    if not cmp_status_ok then
+        return
     end
-}
+
+    cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done { map_char = { tex = "" } })
+
+end
+
+return M
