@@ -37,7 +37,7 @@ function M.confog()
             --     return
             -- end
 
-            local lsp_config_path = "lsp." .. server_name
+            local lsp_config_path = "lang." .. server_name
             local capabilities = common.make_capabilities()
             local config = {
                 capabilities = capabilities,
