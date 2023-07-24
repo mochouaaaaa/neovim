@@ -28,6 +28,9 @@ function M.config()
         always_visible = true,
     }
 
+    local winbar_cfg = {}
+    local inactive_winbar_cfg = {}
+
     local diff = {
         'diff',
         colored = false,
@@ -52,20 +55,19 @@ function M.config()
         end
     end
 
-    -- local conditions = {
-    --     buffer_not_empty = function()
-    --         return vim.fn.empty(vim.fn.expand('%:t')) ~= 1
-    --     end,
-    --     check_git_workspace = function()
-    --         local filepath = vim.fn.expand('%:p:h')
-    --         local gitdir = vim.fn.finddir('.git', filepath .. ';')
-    --         return gitdir and #gitdir > 0 and #gitdir < #filepath
-    --     end,
-    -- }
-
+    local conditions = {
+        buffer_not_empty = function()
+            return vim.fn.empty(vim.fn.expand('%:t')) ~= 1
+        end,
+        check_git_workspace = function()
+            local filepath = vim.fn.expand('%:p:h')
+            local gitdir = vim.fn.finddir('.git', filepath .. ';')
+            return gitdir and #gitdir > 0 and #gitdir < #filepath
+        end,
+    }
 
     local lsp_status = function()
-        local lsp_status = require 'lsp-status'
+        local lsp_status = require('lsp-status')
         local ok, result = pcall(lsp_status.status)
         if ok then
             return result
@@ -79,22 +81,18 @@ function M.config()
             theme = 'auto',
             -- component_separators = { left = '', right = '' },
             -- section_separators = { left = '', right = '' },
-            -- "dapui_watches", "dapui_stacks", "dapui_scopes", "dapui_breakpoints"
-            -- disabled_filetypes = {
-            --     'alpha',
-            --     'dashboard',
-            --     'NvimTree',
-            --     'neo-tree',
-            --     'sagaoutline',
-            --     'tagbar',
-            -- },
             component_separators = { left = '│', right = '│' },
             section_separators = { left = '', right = '' },
+            -- "dapui_watches", "dapui_stacks", "dapui_scopes", "dapui_breakpoints"
             disabled_filetypes = {
-                statusline = {},
-                winbar = {}
+                'alpha',
+                'dashboard',
+                'NvimTree',
+                'neo-tree',
+                'sagaoutline',
+                'tagbar',
             },
-            ignore_focus = {},
+            ignore_fonts = {},
             always_divide_middle = true,
             globalstatus = false,
             refresh = {
@@ -116,31 +114,32 @@ function M.config()
                 },
                 {
                     lsp_status
-                },
+                }
                 -- { require('auto-session-library').current_session_name },
             },
             lualine_x = {
                 'encoding',
                 -- "fileformat",
-                {
-                    'fileformat'
-                }, {
-                    'filetype',
-                    colored = true,    -- displays filetype icon in color if set to `true
-                    -- icon_only = false, -- Display only icon for filetype
-                },
                 -- {
-                    -- 'filesize',
-                    -- icon = '',
-                    -- cond = conditions.buffer_not_empty,
-                    -- color = { fg = '#a3be8c' },
+                --     'filetype',
+                --     colored = true,    -- displays filetype icon in color if set to `true
+                --     icon_only = false, -- Display only icon for filetype
                 -- },
+                'fileformat',
+                'filetype',
+                {
+                    'filesize',
+                    -- icon = '',
+                    cond = conditions.buffer_not_empty,
+                    -- color = { fg = '#a3be8c' },
+                },
             },
             lualine_y = {
                 -- "progress",
                 progress,
             },
-            lualine_z = { 'location' },
+            -- lualine_z = { 'location' },
+            lualine_z = {clock()},
         },
         inactive_sections = {
             lualine_a = {},
@@ -148,9 +147,9 @@ function M.config()
             lualine_c = {
                 {
                     'filename',
-                    -- file_status = true,   -- displays file status (readonly status, modified status)
-                    -- path = 2,             -- 0 = just filename, 1 = relative path, 2 = absolute path
-                    -- shorting_target = 30, -- Shortens path to leave 40 space in the window
+                    file_status = true,   -- displays file status (readonly status, modified status)
+                    path = 2,             -- 0 = just filename, 1 = relative path, 2 = absolute path
+                    shorting_target = 30, -- Shortens path to leave 40 space in the window
                     -- for other components. Terrible name any suggestions?
                 },
                 -- { require('auto-session-library').current_session_name },
@@ -159,31 +158,19 @@ function M.config()
             lualine_y = {},
             lualine_z = {},
         },
-        tabline = {
-            lualine_a = {
-                {
-                    'buffers',
-                    mode = 2,
-                    show_filename_only = true,
-                    hide_filename_extension = false,
-                },
-            },
-                lualine_b = {},
-                lualine_c = {},
-                lualine_x = { 'windows' },
-                lualine_y = { 'tabs' },
-                lualine_z = {}
-        },
-        winbar = {},
-        inactive_winbar = {},
+        tabline = {},
+        winbar = winbar_cfg,
+        inactive_winbar = inactive_winbar_cfg,
         extensions = {
-          -- 'quickfix',
-          -- 'man',
-          -- 'toggleterm',
-          -- 'lazy',
-          -- 'fugitive'
+            'neo-tree',
+            'quickfix',
+            'man',
+            'toggleterm',
+            'lazy',
+            'fugitive'
         },
     })
 end
 
 return M
+
