@@ -1,6 +1,5 @@
 return {
     "jose-elias-alvarez/null-ls.nvim",
-    cond = not vim.g.vscode,
     config = function()
         local null_ls = require("null-ls")
         local perfer_local = vim.fn.stdpath("data") .. "/mason/bin"
@@ -28,6 +27,13 @@ return {
                             return home .. "/.cspell.json"
                         end,
                     },
+                }),
+                null_ls.builtins.code_actions.gitsigns.with({
+                    config = {
+                        filter_actions = function(title)
+                            return title:lower():match('blame') == nil
+                        end
+                    }
                 }),
                 -- null_ls.builtins.diagnostics.codespell,
                 -- null_ls.builtins.diagnostics.semgrep.with{

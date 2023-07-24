@@ -155,8 +155,6 @@ function M.config()
                     luasnip.expand_or_jump()
                 elseif has_words_before() then
                     cmp.complate()
-                elseif luasnip.expandable() then
-                    luasnip.expand()
                 else
                     fallback()
                 end
@@ -172,7 +170,6 @@ function M.config()
                 end
             end, { "i", "s" })
         }),
-
         -- You can set mappings if you want
         -- mapping = insert_map,
         snippet = {
@@ -201,6 +198,12 @@ function M.config()
         }),
     })
 
+    cmp.setup.cmdline("/", {
+        mapping = cmp.mapping.preset.cmdline(),
+        sources = {
+            { name = "buffer" }
+        }
+    })
     cmp.setup.filetype({ 'TelescopePrompt' }, {
         sources = {},
     })

@@ -2,13 +2,11 @@ return {
     'nvim-telescope/telescope.nvim',
     event = 'VeryLazy',
     dependencies = {
-        'nvim-lua/plenary.nvim', 
-        {
-            "nvim-telescope/telescope-fzf-native.nvim", build = 'make'
-        },
-        {
-            'nvim-telescope/telescope-dap.nvim',
-        },
+        { 'debugloop/telescope-undo.nvim' },
+        { 'nvim-lua/plenary.nvim' },
+        { "nvim-telescope/telescope-fzf-native.nvim", build = 'make' },
+        { 'nvim-telescope/telescope-ui-select.nvim' },
+        { 'nvim-telescope/telescope-dap.nvim', },
     },
     config = function()
         local telescope = require('telescope')
@@ -154,72 +152,97 @@ return {
                     },
                 },
             },
+            -- pickers = {
+            --     find_files = {
+            --         find_command = { 'fd', '--type', '--strip-cwd-prefix' }
+            --     }
+            -- },
             extensions = {
                 fzf = {
-                    fuzzy = true, -- false will only do exact matching
+                    fuzzy = true,                   -- false will only do exact matching
                     override_generic_sorter = true, -- override the generic sorter
-                    override_file_sorter = true, -- override the file sorter
-                    case_mode = 'smart_case', -- or "ignore_case" or "respect_case"
+                    override_file_sorter = true,    -- override the file sorter
+                    case_mode = 'smart_case',       -- or "ignore_case" or "respect_case"
                     -- the default case_mode is "smart_case"
+                },
+                ['ui-select'] = {
+                    require('telescope.themes').get_cursor {
+                        borderchars = { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' },
+                        -- borderchars = {
+                        -- prompt = { "─", "│", " ", "│", "┌", "┐", "│", "│" },
+                        -- results = { "─", "│", "─", "│", "├", "┤", "┘", "└" },
+                        -- preview = { "─", "│", "─", "│", "┌", "┐", "┘", "└" },
+                        -- }
+                    }
+                },
+                undo = {
+                    side_by_side = true,
+                    layout_strategy = 'vertical',
+                    layout_config = {
+                        preview_height = 0.5,
+                    },
                 },
             },
         })
 
+        require('telescope').load_extension('projects')
         telescope.load_extension('fzf')
+        require('telescope').load_extension('undo')
+        require('telescope').load_extension('ui-select')
         telescope.load_extension('dap')
     end,
     keys = {
-       --禁用 grep files 按键映射, 不然不生效
-       {"<leader>/", false},
-       {
-           "<leader>ff",
-           function()
-               require("telescope.builtin").find_files({
+        --禁用 grep files 按键映射, 不然不生效
+        { "<leader>/", false },
+        {
+            "<leader>ff",
+            function()
+                require("telescope.builtin").find_files({
+                    --cwd = require("lazy.core.config").options.root
+                })
+            end,
+            desc = "列出当前工作目录中的文件"
+        }, {
+        "<leader>fg",
+        function()
+            require("telescope.builtin").live_grep({
                 --cwd = require("lazy.core.config").options.root
-               })
-           end,
-           desc = "列出当前工作目录中的文件"
-       }, {
-           "<leader>fg",
-           function()
-               require("telescope.builtin").live_grep({
-                --cwd = require("lazy.core.config").options.root
-               })
-           end,
-           desc = "在当前工作目录中搜索字符串，并在键入时实时获取结果"
-       }, {
-           "<leader><space>",
-           function()
-               require("telescope.builtin").buffers(
-                -- {
-                --    cwd = require("lazy.core.config").options.root
-                -- }
-                )
-           end,
-           desc = "列出当前 neovim 实例中的打开缓冲区"
-       }, {
-           "<leader>fh",
-           function()
-               require("telescope.builtin").help_tags(
+            })
+        end,
+        desc = "在当前工作目录中搜索字符串，并在键入时实时获取结果"
+    }, {
+        "<leader><space>",
+        function()
+            require("telescope.builtin").buffers(
+            -- {
+            --    cwd = require("lazy.core.config").options.root
+            -- }
+            )
+        end,
+        desc = "列出当前 neovim 实例中的打开缓冲区"
+    }, {
+        "<leader>fh",
+        function()
+            require("telescope.builtin").help_tags(
             --     {
             --        cwd = require("lazy.core.config").options.root
             --    }
-                )
-           end,
-           desc = "列出可用的帮助标记，并打开一个新窗口，其中包含相关的帮助信息"
-       },
+            )
+        end,
+        desc = "列出可用的帮助标记，并打开一个新窗口，其中包含相关的帮助信息"
+    },
         {
             "<leader>?",
             function()
-              require("telescope.builtin").oldfiles(
+                require("telescope.builtin").oldfiles(
                 -- {
                 --     cwd = require("lazy.core.config").options.root
                 -- }
                 )
             end,
             desc = "列出历史打开过的文件"
-       },
-       {
+        },
+        {
             '<leader>td',
             function()
                 vim.cmd('TodoTelescope')
