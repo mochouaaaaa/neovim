@@ -1,3 +1,5 @@
+local util = require("formatter.util")
+
 return {
 	Lua = {
 		runtime = {
@@ -8,7 +10,7 @@ return {
 			enable = true,
 			defaultConfig = {
 				indent_style = "space",
-				indent_size = "2",
+				indent_size = "4",
 				quote_style = "single",
 				--   align_if_branch = false,
 				-- align_array_table = false,
