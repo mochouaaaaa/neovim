@@ -1,32 +1,5 @@
 -- local M = {
 --     'folke/flash.nvim',
---     event = 'VeryLazy',
---     keys = {
---         {
---             't',
---             mode = { 'n', 'x', 'o' },
---             function()
---                 require('flash').jump()
---             end,
---             desc = 'Flash Jump',
---         },
---         {
---             '<leader>ft',
---             mode = { 'n' },
---             function()
---                 require('flash').treesitter()
---             end,
---             desc = 'Flash Treesitter Search',
---         },
---         {
---             '<leader>ts',
---             mode = { 'n' },
---             function()
---                 require('flash').treesitter_search()
---             end,
---             desc = 'Flash Treesitter Search',
---         },
---     },
 -- }
 --
 -- function M.config()
@@ -59,36 +32,42 @@
 --
 -- return M
 
-
 return {
-    "folke/flash.nvim",
-    config = function()
-        require("flash").setup()
-        vim.keymap.set({ "n", "x", "o" }, "s",
-            function()
-                require("flash").jump({
-                    search = {
-                        mode = function(str)
-                            return "\\<" .. str
-                        end,
-                    },
-                })
-            end
-        )
-        vim.keymap.set({ "n", "x", "o" }, "S",
-            function()
-                require("flash").treesitter()
-            end
-        )
-        vim.keymap.set({ "o" }, "r",
-            function()
-                require("flash").remote()
-            end
-        )
-        vim.keymap.set({ "o", "x" }, "R",
-            function()
-                require("flash").treesitter_search()
-            end
-        )
-    end,
+	"folke/flash.nvim",
+	event = "VeryLazy",
+	keys = {
+		{
+			"s",
+			mode = { "n", "x", "o" },
+			function()
+				require("flash").jump({
+					search = {
+						mode = function(str)
+							return "\\<" .. str
+						end,
+					},
+				})
+			end,
+			desc = "Flash Jump",
+		},
+		{
+			"S",
+			mode = { "n", "x", "o" },
+			function()
+				require("flash").treesitter()
+			end,
+			desc = "Flash Treesitter Search",
+		},
+		{
+			"R",
+			mode = { "o", "x" },
+			function()
+				require("flash").treesitter_search()
+			end,
+			desc = "Flash Treesitter Search",
+		},
+	},
+	config = function()
+		require("flash").setup()
+	end,
 }
