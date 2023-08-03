@@ -56,7 +56,7 @@ function M.config()
 			},
 		},
 		outline = {
-			layout = "float",
+			-- layout = "float",
 		},
 		finder = {
 			keys = {
