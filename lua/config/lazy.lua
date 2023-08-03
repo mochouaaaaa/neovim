@@ -15,7 +15,7 @@ require("lazy").setup({
 	spec = {
 		-- 添加 LazyVim 并且导入它的其他插件
 		{ "LazyVim/LazyVim", import = "lazyvim.plugins" },
-        { import = "lazyvim.plugins.extras.lang.go" },
+		{ import = "lazyvim.plugins.extras.lang.go" },
 		--        { "LazyVim/LazyVim" }, -- 导入/覆盖你的插件
 		{ import = "plugins" },
 	},
@@ -29,7 +29,7 @@ require("lazy").setup({
 		-- version = "*", -- 尝试安装最新稳定版本插件来支持 semver
 	},
 	-- install = { colorscheme = { "tokyonight", "habamax" } },
-	checker = { enabled = false }, -- 自动检查插件更新
+	checker = { enabled = false}, -- 自动检查插件更新
 	performance = {
 		rtp = {
 			-- 禁用一些 rtp 插件
