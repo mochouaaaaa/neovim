@@ -29,7 +29,7 @@ require("lazy").setup({
 		-- version = "*", -- 尝试安装最新稳定版本插件来支持 semver
 	},
 	-- install = { colorscheme = { "tokyonight", "habamax" } },
-	checker = { enabled = false}, -- 自动检查插件更新
+	checker = { enabled = false }, -- 自动检查插件更新
 	performance = {
 		rtp = {
 			-- 禁用一些 rtp 插件

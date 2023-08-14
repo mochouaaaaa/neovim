@@ -60,3 +60,5 @@ keymap.set("n", "<A-l>", "<C-w>l")
 keymap.set("n", "<leader>nh", ":nohl<CR>")
 
 ------ 插件
+-- telescope
+
