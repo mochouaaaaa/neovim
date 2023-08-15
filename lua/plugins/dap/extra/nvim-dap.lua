@@ -1,5 +1,8 @@
 local M = {
 	"mfussenegger/nvim-dap",
+	dependencies = {
+		"rcarriga/nvim-dap-ui",
+	},
 }
 
 M.keys = require("plugins.dap.keys").keys

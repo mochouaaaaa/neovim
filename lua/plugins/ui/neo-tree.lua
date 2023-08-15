@@ -14,6 +14,17 @@ local M = {
 	cmd = "Neotree",
 }
 
+M.keys = {
+	{ "<C-e>e", "<Cmd>Neotree toggle<CR>", desc = "📁Toggle File Explorer" },
+	{ "<leader>eb", "<Cmd>Neotree buffers<CR>", desc = "📁Neo-tree Buffers" },
+	{ "<leader>eg", "<Cmd>Neotree git_status<CR>", desc = "📁Neo-tree Git Status" },
+	{
+		"<leader>ed",
+		"<Cmd>Neotree reveal_force_cwd dir=%:h toggle<CR>",
+		desc = "📁Toggle File Explorer in buffer dir",
+	},
+}
+
 function M.opts()
 	-- NOTE :
 	-- Use `lua require"neo-tree".paste_default_config()` to get the default config

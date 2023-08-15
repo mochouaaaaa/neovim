@@ -1,6 +1,5 @@
 local M = {
 	"nvimdev/guard.nvim",
-	enabled = true,
 }
 
 function M.config()
@@ -24,6 +23,9 @@ function M.config()
 	require("guard").setup({
 		-- the only option for the setup function
 		fmt_on_save = true,
+            -- Use lsp if no formatter was defined for this filetype
+    lsp_as_default_formatter = false,
+
 	})
 end
 

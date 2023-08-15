@@ -1,6 +1,10 @@
 return {
 	"folke/which-key.nvim",
 	event = "VeryLazy",
+     init = function()
+    vim.o.timeout = true
+    vim.o.timeoutlen = 300
+  end,
 	opts = {
 		popup_mappings = {
 			scroll_up = "<c-i>", -- binding to scroll up inside the popup
@@ -45,4 +49,12 @@ return {
 			buftypes = { "TelescopePrompt" },
 		},
 	},
+    config = function()
+        local wk = require("which-key")
+        wk.register({
+            e = {
+                name = "neo-tree"
+            }
+        },{ prefix = "<leader>" })
+    end
 }

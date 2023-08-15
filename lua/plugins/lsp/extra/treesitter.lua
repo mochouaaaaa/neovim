@@ -105,15 +105,24 @@ return {
 	{
 		"nvim-treesitter/nvim-treesitter",
 		build = ":TSUpdate",
-		event = "BufReadPost",
+		event = { "BufReadPost", "BufNewFile" },
 		dependencies = { "nvim-treesitter/nvim-treesitter-textobjects" },
 		opts = function(_, opts)
-			vim.list_extend(opts.ensure_installed, {
+			-- vim.list_extend(opts.ensure_installed, {
+			-- 	"go",
+			-- 	"gomod",
+			-- 	"gowork",
+			-- 	"gosum",
+			-- })
+			ensure_installed = {
+				"bash",
+				"lua",
+				"python",
 				"go",
-				"gomod",
-				"gowork",
-				"gosum",
-			})
+				"vim",
+				"cpp",
+				"c",
+			}
 		end,
 		config = function()
 			require("nvim-treesitter.configs").setup({
@@ -212,3 +221,4 @@ return {
 		end,
 	},
 }
+

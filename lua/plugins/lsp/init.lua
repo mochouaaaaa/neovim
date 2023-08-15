@@ -1,3 +1,3 @@
 return {
-	import = "plugins.lsp.extra",
+	{ import = "plugins.lsp.extra" },
 }

@@ -111,39 +111,4 @@ return {
 			require("trouble").setup()
 		end,
 	},
-	{
-		"folke/which-key.nvim",
-		config = function()
-			require("which-key").setup()
-			-- 	local wk = require("which-key")
-			-- 	wk.register({
-			-- 		f = {
-			-- 			name = "Telescope Finder",
-			-- 			td = { name = "Find Porjects TODO" },
-			-- 			i = { name = "BuildIn | Reloader" },
-			-- 			m = { name = "Mark" },
-			-- 			h = { name = "History | Help | Highlight" },
-			-- 			w = { name = "Workspace | LSP Action" },
-			-- 			s = { name = "Spectre" },
-			-- 		},
-			-- 		c = { name = "Code" },
-			-- 		d = {
-			-- 			name = "DAP or Diagnostics",
-			-- 			t = { "<cmd>TroubleToggle<cr>", "trouble" },
-			-- 			w = { "<cmd>TroubleToggle workspace_diagnostics<cr>", "workspace" },
-			-- 			d = { "<cmd>TroubleToggle document_diagnostics<cr>", "document" },
-			-- 			q = { "<cmd>TroubleToggle quickfix<cr>", "quickfix" },
-			-- 			l = { "<cmd>TroubleToggle loclist<cr>", "loclist" },
-			-- 			r = { "<cmd>TroubleToggle lsp_references<cr>", "references" },
-			-- 		},
-			-- 		o = { name = "Orgmode" },
-			-- 		m = { name = "Markdown | Format | Marks" },
-			-- 		r = { name = "Rename | Rest" },
-			-- 		s = { name = "Source | Session" },
-			-- 		t = { name = "Translate" },
-			-- 		w = { name = "Workspace" },
-			-- 		g = { name = "Git" },
-			-- 	}, { prefix = "<leader>" })
-		end,
-	},
 }
