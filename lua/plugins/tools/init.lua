@@ -86,6 +86,23 @@ return {
 		end,
 	},
 	{
+		"kdheepak/lazygit.nvim",
+		dependencies = {
+			"nvim-telescope/telescope.nvim",
+			"nvim-lua/plenary.nvim",
+		},
+		config = function()
+			require("telescope").load_extension("lazygit")
+		end,
+		keys = {
+			{
+				"<leader>gg",
+				"<cmd>:LazyGit<CR>",
+				desc = "git manager",
+			},
+		},
+	},
+	{
 		"lewis6991/gitsigns.nvim",
 		event = { "BufReadPre", "BufNewFile" },
 
@@ -178,10 +195,13 @@ return {
 		"CRAG666/code_runner.nvim",
 		keys = {
 			{ "<leader>cr", "<Cmd>RunCode<CR>", desc = "Code Runner" },
+			{ "<leader>cc", "<Cmd>FunCloser<CR>", desc = "Code Console Close" },
 		},
 		opts = {
 			mode = "toggleterm",
 			filetype = {
+				python = "python3 -u",
+				go = "go run",
 				cpp = "xmake -r && xmake run $end",
 			},
 		},

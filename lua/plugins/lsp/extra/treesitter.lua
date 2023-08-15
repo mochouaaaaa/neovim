@@ -117,8 +117,11 @@ return {
 			ensure_installed = {
 				"bash",
 				"lua",
+				"ninja",
 				"python",
 				"go",
+				"rst",
+				"toml",
 				"vim",
 				"cpp",
 				"c",

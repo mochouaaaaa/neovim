@@ -224,6 +224,8 @@ function M.config()
 					look = "[Dict]",
 				})[entry.source.name]
 
+				vim_item.with_text = true
+
 				return vim_item
 			end,
 		},
