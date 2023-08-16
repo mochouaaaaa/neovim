@@ -45,7 +45,7 @@ keymap.set("v", "L", ">gv")
 -- 窗口
 keymap.set("n", "<leader>|", "<C-w>v") -- 垂直新增窗口
 keymap.set("n", "<leader>_", "<C-w>s") -- 水平新增窗口
-keymap.set("n", "<C-w>", ":BufferLineCloseOther")
+keymap.set("n", "<C-w>", "<Cmd>BufferLineCloseOther<CR>")
 keymap.set("n", "sc", "<C-w>c") -- 关闭当前窗口
 keymap.set("n", "so", "<C-w>o") -- 关闭其他窗口
 -- alt + hjkl 在窗口之间跳转

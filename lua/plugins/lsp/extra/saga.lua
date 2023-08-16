@@ -93,7 +93,7 @@ M.opts = {
 		virtual_text = true,
 	},
 	rename = {
-		quit = "<C-c>",
+		quit = "<C-q>",
 		exec = "<CR>",
 		mark = "m",
 		confirm = "<CR>",

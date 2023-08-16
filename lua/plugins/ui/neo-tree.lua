@@ -342,6 +342,7 @@ function M.opts()
 				["<space>"] = "none",
 				["<cr>"] = "open",
 				["o"] = "open",
+				["<tab>"] = "open",
 				["<esc>"] = "revert_preview",
 				["P"] = { "toggle_preview", config = { use_float = true } },
 				["l"] = "focus_preview",

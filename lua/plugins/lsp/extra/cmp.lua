@@ -18,73 +18,7 @@ local M = {
 		},
 		"hrsh7th/cmp-cmdline",
 		"dmitmel/cmp-cmdline-history",
-		{
-			"tzachar/cmp-tabnine",
-			build = "./install.sh",
-			config = function()
-				require("cmp_tabnine.config"):setup({
-					max_lines = 1000,
-					max_num_results = 20,
-					sort = true,
-					run_on_every_keystroke = true,
-					snippet_placeholder = "..",
-					show_prediction_strength = false,
-				})
-			end,
-		},
-		{
-			"zbirenbaum/copilot.lua",
-			opts = {
-				panel = { enabled = false },
-				auto_refresh = true,
-				suggestion = {
-					enable = true,
-					auto_trigger = true,
-					keymap = false,
-				},
-				filetypes = {
-					["*"] = true,
-				},
-			},
-		},
-		{
-			"windwp/nvim-autopairs",
-			dependencies = "hrsh7th/nvim-cmp",
-			config = function()
-				local npairs_ok, npairs = pcall(require, "nvim-autopairs")
-				if not npairs_ok then
-					return
-				end
-
-				npairs.setup({
-					check_ts = true,
-					ts_config = {
-						lua = { "string", "source" },
-						javascript = { "string", "template_string" },
-					},
-					fast_wrap = {
-						map = "<M-e>",
-						chars = { "{", "[", "(", '"', "'" },
-						pattern = [=[[%'%"%)%>%]%)%}%,]]=],
-						end_key = "$",
-						keys = "qwertyuiopzxcvbnmasdfghjkl",
-						check_comma = true,
-						highlight = "Search",
-						highlight_grey = "Comment",
-					},
-					enable_check_bracket_line = false,
-				})
-
-				local cmp_autopairs = require("nvim-autopairs.completion.cmp")
-				local cmp_status_ok, cmp = pcall(require, "cmp")
-
-				if not cmp_status_ok then
-					return
-				end
-
-				cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
-			end,
-		},
+		"nvim-lua/lsp-status.nvim",
 	},
 }
 
@@ -105,15 +39,12 @@ function M.config()
 	end
 
 	local luasnip = require("luasnip")
-
 	local has_words_before = function()
-		local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+		local line, col = table.unpack(vim.api.nvim_win_get_cursor(0))
 		return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
 	end
 
 	require("luasnip.loaders.from_vscode").lazy_load()
-
-	local copilot = require("copilot.suggestion")
 
 	cmp.setup({
 		enabled = function()
@@ -224,8 +155,6 @@ function M.config()
 					look = "[Dict]",
 				})[entry.source.name]
 
-				vim_item.with_text = true
-
 				return vim_item
 			end,
 		},
@@ -239,10 +168,13 @@ function M.config()
 			}),
 			["<Tab>"] = cmp.mapping(function(fallback)
 				if cmp.visible() then
-					copilot.accept()
-					-- cmp.select_next_item()
-				elseif cmp.visible() then
 					cmp.select_next_item()
+					-- You could replace the expand_or_jumpable() calls with expand_or_locally_jumpable()
+					-- they way you will only jump inside the snippet region
+				elseif luasnip.expand_or_jumpable() then
+					luasnip.expand_or_jump()
+				elseif has_words_before() then
+					cmp.complete()
 				else
 					fallback()
 				end

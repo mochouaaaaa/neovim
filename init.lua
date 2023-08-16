@@ -25,8 +25,6 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup({
 	spec = {
 		-- 添加 LazyVim 并且导入它的其他插件
-		-- { "LazyVim/LazyVim", import = "lazyvim.plugins" },
-		--        { "LazyVim/LazyVim" }, -- 导入/覆盖你的插件
 		{ import = "plugins" },
 	},
 	defaults = {
@@ -42,9 +40,9 @@ require("lazy").setup({
 	checker = { enabled = false }, -- 自动检查插件更新
 	performance = {
 		cache = {
-            enabled = true,
-            -- disable_events = {},
-        },
+			enabled = true,
+			-- disable_events = {},
+		},
 		rtp = {
 			-- 禁用一些 rtp 插件
 			disabled_plugins = {

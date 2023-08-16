@@ -1,15 +1,18 @@
 local M = {
 	"neovim/nvim-lspconfig", -- official lspconfig
 	event = { "BufReadPre", "BufNewFile" },
+	dependencies = {
+		"mason.nvim",
+		"williamboman/mason-lspconfig.nvim",
+	},
 }
 
-function M.confiig()
+function M.config()
+	local lspconfig = require("lspconfig")
+
 	local common = require("plugins.lsp.lang.common")
 	require("mason-lspconfig").setup_handlers({
 		function(server_name)
-			if vim.o.diff == "git" then
-				return
-			end
 			local lsp_config_path = "plugins.lsp.lang." .. server_name
 			local capabilities = common.make_capabilities()
 			local config = {
@@ -25,7 +28,7 @@ function M.confiig()
 			if pcall(require, settings) then
 				config.settings = require(settings)
 			end
-			require("lspconfig")[server_name].setup(config)
+			lspconfig[server_name].setup(config)
 		end,
 	})
 end
