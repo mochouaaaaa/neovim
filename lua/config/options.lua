@@ -26,7 +26,7 @@ opt.clipboard:append("unnamedplus")
 opt.splitright = true
 opt.splitbelow = true
 
--- 搜索
+-- 搜索大小写不敏感，除非包含大写
 opt.ignorecase = true
 opt.smartcase = true
 
@@ -36,4 +36,12 @@ opt.signcolumn = "yes"
 
 opt.showmode = false
 
+-- 当文件被外部程序修改时，自动加载
+opt.autoread = true
+vim.bo.autoread = true
+
+-- 禁止创建备份文件
+opt.backup = false
+opt.writebackup = false
+opt.swapfile = false
 -- vim.cmd([[colorscheme onedark]])

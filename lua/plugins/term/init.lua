@@ -60,20 +60,20 @@ local toggleterm = {
 	cmd = { "ToggleTerm", "TermExec" },
 	keys = {
 		"<C-d>",
-		{
-			"<C-g>",
-			function()
-				lazygit:toggle()
-			end,
-			desc = "Toggle Lazygit",
-		},
-		{
-			"<C-w>e",
-			function()
-				ranger:toggle()
-			end,
-			desc = "Toggle Lazygit",
-		},
+		-- {
+		-- 	"<C-g>",
+		-- 	function()
+		-- 		lazygit:toggle()
+		-- 	end,
+		-- 	desc = "Toggle Lazygit",
+		-- },
+		-- {
+		-- 	"<C-w>e",
+		-- 	function()
+		-- 		ranger:toggle()
+		-- 	end,
+		-- 	desc = "Toggle Lazygit",
+		-- },
 		{ "<C-e>u", "<Cmd>ToggleTerm direction=horizontal<CR>", desc = "Toggle Terminal horizontal" },
 		{ "<C-e>o", "<Cmd>ToggleTerm direction=vertical<CR>", desc = "Toggle Terminal vertical" },
 		{ "<C-e>i", "<Cmd>ToggleTerm direction=float<CR>", desc = "Toggle Terminal float" },

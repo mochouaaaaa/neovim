@@ -11,11 +11,11 @@ local M = {
 			end
 		end
 	end,
-	cmd = "Neotree",
+	-- cmd = "Neotree",
 }
 
 M.keys = {
-	{ "<C-e>e", "<Cmd>Neotree toggle<CR>", desc = "📁Toggle File Explorer" },
+	{ "<leader>ee", "<Cmd>Neotree toggle<CR>", desc = "📁Toggle File Explorer" },
 	{ "<leader>eb", "<Cmd>Neotree buffers<CR>", desc = "📁Neo-tree Buffers" },
 	{ "<leader>eg", "<Cmd>Neotree git_status<CR>", desc = "📁Neo-tree Git Status" },
 	{
