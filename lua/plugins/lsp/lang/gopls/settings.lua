@@ -20,6 +20,7 @@ return {
 			parameterNames = true,
 			rangeVariableTypes = true,
 		},
+		-- lsp_inlay_hints = { enable = false },
 		analyses = {
 			fieldalignment = true,
 			nilness = true,
@@ -29,7 +30,7 @@ return {
 		},
 		usePlaceholders = true,
 		completeUnimported = true,
-		staticcheck = true,
+		-- staticcheck = true,
 		directoryFilters = { "-.git", "-.vscode", "-.idea", "-.vscode-test", "-node_modules" },
 		semanticTokens = true,
 	},
