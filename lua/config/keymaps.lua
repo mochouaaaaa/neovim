@@ -29,5 +29,3 @@ setmap("n", "<A-l>", "<C-w>l")
 
 -- 取消高亮
 setmap("n", "<leader>nh", "<Cmd>nohl<CR>")
-
-setmap("n", "<A-e>", "<Cmd>Neotree toggle<CR>")
