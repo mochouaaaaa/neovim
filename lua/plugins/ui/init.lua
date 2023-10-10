@@ -48,6 +48,7 @@ local M = {
 			vim.cmd.colorscheme("catppuccin")
 		end,
 	},
+	-- { import = "plugins.ui.theme.onedark" },
 }
 
 return M
