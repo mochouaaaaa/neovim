@@ -6,9 +6,13 @@ end
 local function opts()
 	local winbar = {
 		lualine_a = {
-			function()
-				return " " .. os.date("%A %H:%M")
-			end,
+			{
+				function()
+					return " " .. os.date("%A %H:%M")
+				end,
+				separator = { left = "" },
+				right_padding = 2,
+			},
 		},
 		lualine_b = {
 			{ "fancy_diagnostics" },
@@ -35,18 +39,21 @@ local function opts()
 					fg = "#1e1e2e",
 					bg = "#986FEC",
 				},
+				separator = { right = "" },
+				left_padding = 2,
 			},
 		},
 	}
 
 	local sections = {
 		lualine_a = {
-			{ "fancy_mode", width = 6 },
+			-- { "fancy_mode", width = 6 },
+			{ "mode", separator = { left = "" }, right_padding = 2 },
 		},
 		lualine_b = {
 			{
 				"b:gitsigns_head",
-				icon = " ",
+				icon = "",
 				color = {
 					fg = "#69bbae",
 					bg = "#1e1e2e",
@@ -55,19 +62,47 @@ local function opts()
 			{ "fancy_diff" },
 		},
 		lualine_c = {
-			{ "fancy_cwd", substitute_home = true },
+			-- { "fancy_cwd", substitute_home = true },
+			"filename",
+		},
+		lualine_x = { "filetype" },
+		lualine_y = { "progress" },
+		lualine_z = {
+			{
+				function()
+					local loc = require("lualine.components.location")()
+					local sel = require("lualine.components.selectioncount")()
+					if sel ~= "" then
+						loc = loc .. " (" .. sel .. " sel)"
+					end
+					return loc
+				end,
+				separator = { right = "" },
+				left_padding = 2,
+			},
 		},
 	}
 
 	return {
 		options = {
-			component_separators = { left = "", right = "" },
-			theme = "auto",
+			component_separators = "|",
+			-- component_separators = { left = "", right = "" },
+			-- theme = "auto",
+			-- theme = "onedark",
+			theme = "catppuccin",
 			section_separators = {
 				right = "",
 				left = "",
 			},
 			globalstatus = true,
+			ignore_focus = {
+				"dapui_watches",
+				"dapui_stacks",
+				"dapui_breakpoints",
+				"dapui_scopes",
+				"dapui_console",
+				"dap-repl",
+			},
 			disabled_filetypes = {
 				statusline = {
 					"alpha",
@@ -108,6 +143,7 @@ return {
 					function()
 						require("dropbar.api").pick()
 					end,
+					desc = "dropbar.api.pick",
 				},
 			},
 			opts = {

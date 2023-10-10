@@ -20,9 +20,9 @@ local opts = {
 		kind_icons = {}, -- set to `false` to disable icons
 	},
 	presets = {
-		bottom_search = false, -- use a classic bottom cmdline for search
+		bottom_search = true, -- use a classic bottom cmdline for search
 		long_message_to_split = true, -- long messages will be sent to a split
-		inc_rename = false, -- enables an input dialog for inc-rename.nvim
+		inc_rename = true, -- enables an input dialog for inc-rename.nvim
 		lsp_doc_border = true, -- add a border to hover docs and signature help
 		command_palette = {
 			views = {
@@ -53,6 +53,91 @@ local opts = {
 			-- name = 'moon',
 			name = "soccerHeader",
 			-- name = 'weather',
+		},
+	},
+	routes = {
+		{
+			filter = {
+				event = "notify",
+				any = {
+					-- Neo-tree
+					{ find = "Toggling hidden files: true" },
+					{ find = "Toggling hidden files: false" },
+					{ find = "Operation canceled" },
+
+					-- Telescope
+					{ find = "Nothing currently selected" },
+				},
+			},
+			opts = { skip = true },
+		},
+		{
+			filter = {
+				event = "msg_show",
+				kind = { "echo" },
+			},
+			opts = { skip = true },
+		},
+		{
+			filter = {
+				event = "msg_show",
+				kind = "",
+				any = {
+					-- Save
+					{ find = " bytes written" },
+
+					-- Redo/Undo
+					{ find = " changes; before #" },
+					{ find = " changes; after #" },
+					{ find = "1 change; before #" },
+					{ find = "1 change; after #" },
+
+					-- Yank
+					{ find = " lines yanked" },
+
+					-- Move lines
+					{ find = " lines moved" },
+					{ find = " lines indented" },
+
+					-- Bulk edit
+					{ find = " fewer lines" },
+					{ find = " more lines" },
+					{ find = "1 more line" },
+					{ find = "1 line less" },
+
+					-- General messages
+					{ find = "Already at newest change" },
+					{ find = "Already at oldest change" },
+					{ find = "E21: Cannot make changes, 'modifiable' is off" },
+				},
+			},
+			opts = { skip = true },
+		},
+		{
+			filter = {
+				event = "msg_show",
+				kind = "emsg",
+				any = {
+					-- TODO: A bug workaround of Lspsaga's finder
+					-- { find = "E134: Cannot move a range of lines into itself" },
+				},
+			},
+			opts = { skip = true },
+		},
+		{
+			filter = {
+				event = "lsp",
+				any = {
+					{ find = "formatting" },
+					{ find = "Diagnosing" },
+					{ find = "Diagnostics" },
+					{ find = "diagnostics" },
+					{ find = "code_action" },
+					{ find = "cargo check" },
+					{ find = "Processing full semantic tokens" },
+				},
+			},
+			opts = { skip = true },
 		},
 	},
 }
