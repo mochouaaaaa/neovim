@@ -193,5 +193,6 @@ return {
 			require("noice").redirect(vim.fn.getcmdline())
 		end, { desc = "Redirect Cmdline" })
 		-- vim.opt.guicursor = 'n-v-c:block,i-ci-ve:ver50,r-cr:hor50,o:hor50,a:blinkwait50-blinkoff30-blinkon50-Cursor/lCursor,sm:block-blinkwait175-blinkoff150-blinkon175F'
+		require("telescope").load_extension("noice")
 	end,
 }

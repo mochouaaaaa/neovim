@@ -48,11 +48,12 @@ local function opts()
 	local sections = {
 		lualine_a = {
 			-- { "fancy_mode", width = 6 },
-			{ "mode", separator = { left = "" }, right_padding = 2 },
+			{ "fancy_mode", separator = { left = "" }, right_padding = 2 },
 		},
 		lualine_b = {
 			{
-				"b:gitsigns_head",
+				-- "b:gitsigns_head",
+				"fancy_branch",
 				icon = "",
 				color = {
 					fg = "#69bbae",
@@ -61,25 +62,30 @@ local function opts()
 			},
 			{ "fancy_diff" },
 		},
+
 		lualine_c = {
-			-- { "fancy_cwd", substitute_home = true },
-			"filename",
+			{ "fancy_cwd", substitute_home = true },
 		},
-		lualine_x = { "filetype" },
-		lualine_y = { "progress" },
+		lualine_x = {
+			{ "fancy_macro", cmdheight = 0 },
+			{ "fancy_filetype", ts_icon = "" },
+		},
 		lualine_z = {
-			{
-				function()
-					local loc = require("lualine.components.location")()
-					local sel = require("lualine.components.selectioncount")()
-					if sel ~= "" then
-						loc = loc .. " (" .. sel .. " sel)"
-					end
-					return loc
-				end,
-				separator = { right = "" },
-				left_padding = 2,
-			},
+			{ "fancy_searchcount" },
+			{ "fancy_location", separator = { right = "" }, left_padding = 2 },
+
+			-- {
+			-- function()
+			-- local loc = require("lualine.components.location")()
+			-- local sel = require("lualine.components.selectioncount")()
+			-- if sel ~= "" then
+			-- 	loc = loc .. " (" .. sel .. " sel)"
+			-- end
+			-- return loc
+			-- end,
+			-- 	separator = { right = "" },
+			-- 	left_padding = 2,
+			-- },
 		},
 	}
 
@@ -95,6 +101,9 @@ local function opts()
 				left = "",
 			},
 			globalstatus = true,
+			refresh = {
+				statusline = 100,
+			},
 			ignore_focus = {
 				"dapui_watches",
 				"dapui_stacks",
@@ -134,6 +143,7 @@ return {
 	"nvim-lualine/lualine.nvim",
 	event = "VeryLazy",
 	dependencies = {
+		"nvim-tree/nvim-web-devicons",
 		"meuter/lualine-so-fancy.nvim",
 		{
 			"Bekaboo/dropbar.nvim",

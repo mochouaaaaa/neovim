@@ -39,6 +39,7 @@ M.keys = {
 	{ "<Leader>bd", "<Cmd>BufferLinePickClose<CR>", desc = "Pick a Buffer to delete" },
 	{ "<leader>bp", "<Cmd>BufferLineTogglePin<CR>" },
 	{ "<leader>bP", "<Cmd>BufferLineGroupClose ungrouped<CR>" },
+	-- 左右切换
 	{ "<S-h>", "<Cmd>BufferLineCyclePrev<CR>" },
 	{ "<S-l>", "<Cmd>BufferLineCycleNext<CR>" },
 }

@@ -504,7 +504,7 @@ function M.opts()
 					["r"] = "git_revert_file",
 					["c"] = "git_commit",
 					["p"] = "git_push",
-					["g"] = "git_commit_and_push",
+					["C"] = "git_commit_and_push",
 				},
 			},
 		},
