@@ -60,8 +60,8 @@ M.opts = {
 		keys = {
 			jump_to = "g",
 			expand_or_jump = "o",
-			vsplit = "wo",
-			split = "wu",
+			vsplit = "vs",
+			split = "vh",
 			tabe = "t",
 			tabnew = "r",
 			quit = { "q", "<ESC>", "<C-c>" },
@@ -69,20 +69,20 @@ M.opts = {
 		},
 	},
 	definition = {
-		-- keys = {
-		edit = "<C-o>",
-		vsplit = "<C-v>",
-		split = "<C-h>",
-		tabe = "<C-t>",
-		quit = "<C-q>",
-		close = "<Esc>",
-		-- },
+		keys = {
+			edit = "o",
+			vsplit = "vs",
+			split = "vh",
+			tabe = "t",
+			quit = "q",
+			close = "<Esc>",
+		},
 	},
 	code_action = {
 		num_shortcut = true,
 		keys = {
-			quit = "<C-q>",
-			exec = { "<CR>", "<C-o>" },
+			quit = "q",
+			exec = { "<CR>", "o" },
 		},
 	},
 	lightbulb = {
@@ -93,7 +93,7 @@ M.opts = {
 		virtual_text = true,
 	},
 	rename = {
-		quit = "<C-q>",
+		quit = "q",
 		exec = "<CR>",
 		mark = "m",
 		confirm = "<CR>",

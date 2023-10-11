@@ -1,3 +1,12 @@
+local status, neodev = pcall(require, "neodev")
+if not status then
+	vim.notify("not found neodev.nvim")
+end
+
+neodev.setup({
+	-- add any options here, or leave empty to use the default settings
+})
+
 return {
 	Lua = {
 		runtime = {
@@ -36,6 +45,7 @@ return {
 		},
 		hint = {
 			enable = true,
+			arrayIndex = "Enable",
 			setType = true,
 		},
 	},

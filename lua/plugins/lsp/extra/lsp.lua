@@ -15,6 +15,7 @@ function M.config()
 	require("mason-lspconfig").setup_handlers({
 		function(server_name)
 			local lsp_config_path = "plugins.lsp.lang." .. server_name
+			local settings = lsp_config_path .. ".settings"
 			local capabilities = common.make_capabilities()
 			local config = {
 				capabilities = capabilities,
@@ -24,9 +25,12 @@ function M.config()
 					if pcall(require, lsp_config_path) and require(lsp_config_path).attach ~= nil then
 						require(lsp_config_path).attach(client, bufnr)
 					end
+					local on_attach_config = lsp_config_path .. "config"
+					if pcall(require, on_attach_config) then
+						require("on_attach_config").on_attach(client, bufnr)
+					end
 				end,
 			}
-			local settings = lsp_config_path .. ".settings"
 			if pcall(require, settings) then
 				config.settings = require(settings)
 				-- print(server_name)

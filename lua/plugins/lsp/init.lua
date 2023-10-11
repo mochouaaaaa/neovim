@@ -51,5 +51,6 @@ return {
 			cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
 		end,
 	},
+	{ "folke/neodev.nvim" },
 	{ import = "plugins.lsp.extra" },
 }

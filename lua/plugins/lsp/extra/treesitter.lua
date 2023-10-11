@@ -114,22 +114,21 @@ return {
 			-- 	"gowork",
 			-- 	"gosum",
 			-- })
-			ensure_installed = {
-				"bash",
-				"lua",
-				"ninja",
-				"python",
-				"go",
-				"rst",
-				"toml",
-				"vim",
-				"cpp",
-				"c",
-			}
 		end,
 		config = function()
 			require("nvim-treesitter.configs").setup({
-				ensure_installed = "all",
+				ensure_installed = {
+					"bash",
+					"lua",
+					"ninja",
+					"python",
+					"go",
+					"rst",
+					"toml",
+					"vim",
+					"cpp",
+					"c",
+				},
 				sync_install = false,
 				auto_install = true,
 				highlight = { enable = true },
@@ -224,4 +223,3 @@ return {
 		end,
 	},
 }
-

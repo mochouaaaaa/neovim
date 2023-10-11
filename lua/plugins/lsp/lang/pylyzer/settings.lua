@@ -3,6 +3,6 @@ return {
 		diagnostics = false,
 		inlayHints = true,
 		smartCompletion = true,
-		checkOnType = false,
+		checkOnType = true,
 	},
 }
