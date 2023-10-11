@@ -34,14 +34,16 @@ local M = {
 }
 
 M.keys = {
-	{ "<C-->", "<Cmd>BufferLineMovePrev<CR>", desc = "Move Buffer to Left" },
-	{ "<C-=>", "<Cmd>BufferLineMoveNext<CR>", desc = "Move Buffer to Right" },
+	-- { "<C-->", "<Cmd>BufferLineMovePrev<CR>", desc = "Move Buffer to Left" },
+	-- { "<C-=>", "<Cmd>BufferLineMoveNext<CR>", desc = "Move Buffer to Right" },
 	{ "<Leader>bd", "<Cmd>BufferLinePickClose<CR>", desc = "Pick a Buffer to delete" },
 	{ "<leader>bp", "<Cmd>BufferLineTogglePin<CR>" },
 	{ "<leader>bP", "<Cmd>BufferLineGroupClose ungrouped<CR>" },
 	-- 左右切换
 	{ "<S-h>", "<Cmd>BufferLineCyclePrev<CR>" },
 	{ "<S-l>", "<Cmd>BufferLineCycleNext<CR>" },
+	{ "<S-left>", "<Cmd>BufferLineCyclePrev<CR>" },
+	{ "<S-right>", "<Cmd>BufferLineCycleNext<CR>" },
 }
 
 return M
