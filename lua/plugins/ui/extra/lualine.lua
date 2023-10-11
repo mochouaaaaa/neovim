@@ -10,12 +10,11 @@ local function opts()
 				function()
 					return " " .. os.date("%A %H:%M")
 				end,
-				separator = { left = "" },
+				separator = { left = "", right = "" },
 				right_padding = 2,
 			},
 		},
 		lualine_b = {
-			{ "fancy_diagnostics" },
 			{
 				require("noice").api.status.mode.get,
 				cond = require("noice").api.status.mode.has,
@@ -61,6 +60,7 @@ local function opts()
 				},
 			},
 			{ "fancy_diff" },
+			{ "fancy_diagnostics" },
 		},
 
 		lualine_c = {
