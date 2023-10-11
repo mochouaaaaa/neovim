@@ -71,7 +71,7 @@ return {
 		"ahmedkhalf/project.nvim",
 		config = function()
 			require("project_nvim").setup({
-				patterns = { ".git", ".vscode", ".svn", ".idea" },
+				patterns = { ".git", ".vscode", ".svn", ".idea", "package.json", "Makefile", "manager.py" },
 			})
 		end,
 	},

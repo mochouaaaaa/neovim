@@ -1,3 +1,24 @@
+local extr_args = {
+	"--hidden", -- Search hidden files that are prefixed with `.`
+	"--no-ignore", -- Don’t respect .gitignore
+	"-g",
+	"!.git/",
+	"-g",
+	"!node_modules/",
+	"-g",
+	"!.idea/",
+	"-g",
+	"!pnpm-lock.yaml",
+	"-g",
+	"!package-lock.json",
+	"-g",
+	"!go.sum",
+	"-g",
+	"!lazy-lock.json",
+	"-g",
+	"!.zsh_history",
+}
+
 return {
 	{
 		"/",
@@ -20,24 +41,39 @@ return {
 		desc = "[] Check out all highlights",
 	},
 	{
-		"<leader>tgi",
+		"<leader>tgg",
 		"<Cmd>Telescope git_files<CR>",
 		desc = "[]Search Git File",
 	},
 	{
 		"<leader>tgf",
-		"<Cmd>Telescope live_grep<CR>",
+		-- "<Cmd>Telescope live_grep<CR>",
+		function()
+			require("telescope.builtin").live_grep({ additional_args = extr_args })
+		end,
 		desc = " Search text in cucurrent directory",
 	},
 	{
 		"<C-f>",
-		"<Cmd>Telescope find_files<CR>",
+		-- "<Cmd>Telescope find_files<CR>",
+		function()
+			require("telescope.builtin").find_files({
+				find_command = { "rg", "--color=never", "--smart-case", "--files", unpack(extr_args) },
+			})
+		end,
 		desc = ".* Search files cucurrent directory",
 	},
 	{
 		"<leader>ts",
 		"<Cmd>Telescope spell_suggest<CR>",
 		desc = "益spell suggestions about cursor word",
+	},
+	{
+		"<leader>tb",
+		function()
+			require("telescope.builtin").buffers()
+		end,
+		desc = "find buffers",
 	},
 	{
 		"<leader>tre",
