@@ -77,8 +77,8 @@ return {
 			return {
 				keymaps = {
 					file_panel = {
-						["k"] = action.next_entry,
-						["i"] = action.prev_entry,
+						["n"] = action.next_entry,
+						["p"] = action.prev_entry,
 						["<leader><leader>"] = action.listing_style,
 					},
 				},
@@ -195,7 +195,7 @@ return {
 		"CRAG666/code_runner.nvim",
 		keys = {
 			{ "<leader>cr", "<Cmd>RunCode<CR>", desc = "Code Runner" },
-			{ "<leader>cc", "<Cmd>FunCloser<CR>", desc = "Code Console Close" },
+			{ "<leader>cc", "<Cmd>RunClose<CR>", desc = "Code Console Close" },
 		},
 		opts = {
 			mode = "toggleterm",
@@ -203,8 +203,13 @@ return {
 				python = "python3 -u",
 				go = "go run",
 				cpp = "xmake -r && xmake run $end",
+				lua = "lua",
+				rust = {
+					"cd $dir &&",
+					"rustc $fileName &&",
+					"$dir/$fileNameWithoutExt",
+				},
 			},
 		},
 	},
 }
-
