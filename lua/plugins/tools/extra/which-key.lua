@@ -49,12 +49,12 @@ return {
 			buftypes = { "TelescopePrompt" },
 		},
 	},
-    config = function()
-        local wk = require("which-key")
-        wk.register({
-            e = {
-                name = "neo-tree"
-            }
-        },{ prefix = "<leader>" })
-    end
+    -- config = function()
+    --     local wk = require("which-key")
+    --     wk.register({
+    --         e = {
+    --             name = "neo-tree"
+    --         }
+    --     },{ prefix = "<leader>" })
+    -- end
 }
