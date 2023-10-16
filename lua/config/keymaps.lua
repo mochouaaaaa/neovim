@@ -7,6 +7,17 @@ end
 -- -------- 插入模式 ---------- ---
 setmap("i", "kj", "<ESC>")
 
+-- 退出
+setmap("n", "q", ":q<CR>")
+setmap("n", "qq", ":q!<CR>")
+setmap("n", "Q", ":qa!<CR>")
+
+-- insert 模式下，跳到行首行尾
+setmap("i", "<A-h>", "<ESC>I")
+setmap("i", "<A-l>", "<ESC>A")
+setmap("i", "<A-left>", "<ESC>I")
+setmap("i", "<A-right>", "<ESC>A")
+
 -- ------ 视图模式
 -- 单行或多行移动
 setmap("v", "J", ":m '>+1<CR>gv=gv")
