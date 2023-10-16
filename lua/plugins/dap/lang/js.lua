@@ -21,7 +21,7 @@ return {
 				name = "Attach to process",
 				type = "node2",
 				request = "attach",
-				processId = dap.utils.pick_process,
+				processId = require("dap.utils").pick_process,
 			},
 		}
 	end,

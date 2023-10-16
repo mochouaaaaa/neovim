@@ -1,10 +1,9 @@
 local M = {
-	"rcarriga/nvim-dap-ui",
+	"mfussenegger/nvim-dap",
 }
 
 function M.config()
 	-- nvim-dap-ui settings.
-
 	require("dapui").setup({
 		icons = { expanded = "▾", collapsed = "▸", current_frame = "▸" },
 		mappings = {
