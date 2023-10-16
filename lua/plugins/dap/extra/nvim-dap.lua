@@ -8,6 +8,8 @@ local M = {
 M.keys = require("plugins.dap.keys").keys
 
 function M.config()
+	require("dapui").setup(require("plugins.dap.ui").ui)
+
 	local fn = vim.fn
 	local dap_breakpoint_color = {
 		breakpoint = {
@@ -75,11 +77,18 @@ function M.config()
 
 	dap.listeners.before.event_terminated["dapui_config"] = function()
 		dapui.close()
+		dap.repl.close()
 	end
 
 	dap.listeners.before.event_exited["dapui_config"] = function()
 		dapui.close()
+		dap.repl.close()
 	end
+
+	require("plugins.dap.lang.python").config(dap)
+	require("plugins.dap.lang.go").config(dap)
+	require("plugins.dap.lang.rust").config(dap)
+	require("plugins.dap.lang.js").config(dap)
 end
 
 return M

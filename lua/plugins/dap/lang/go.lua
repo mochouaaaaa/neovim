@@ -38,6 +38,13 @@ return {
 				mode = "test",
 				program = "./${relativeFileDirname}",
 			},
+			{
+				name = "Attach to process",
+				type = "delve",
+				request = "attach",
+				mode = "local",
+				processId = require("dap.utils").pick_process,
+			},
 		}
 	end,
 }

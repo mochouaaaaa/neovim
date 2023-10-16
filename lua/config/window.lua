@@ -8,7 +8,6 @@ local mappings = {
 local function jump(direction)
 	local prev = vim.fn.winnr()
 	vim.cmd("wincmd " .. direction)
-
 	if vim.fn.winnr() == prev then
 		-- the `--to=$KITTY_LISTEN_ON` env is passed automatically
 		vim.fn.system("kitty @ kitten window.py +jump " .. mappings[direction])

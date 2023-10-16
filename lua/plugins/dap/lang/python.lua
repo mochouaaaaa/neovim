@@ -32,14 +32,22 @@ return {
 						return env.pythonPath()
 					end
 				end,
+				justMyCode = false,
+				console = "integratedTerminal",
 			},
 			{
 				type = "python",
 				request = "launch",
-				name = "Django",
+				name = "Django Project",
 				program = vim.fn.getcwd() .. "/manage.py",
 				pythonPath = env.pythonPath(),
-				args = { "runserver", "--noreload" },
+				args = function()
+					local args_string = vim.fn.input("arguments: ")
+					return { "runserver", args_string, "--noreload" }
+				end,
+				justMyCode = false,
+				console = "integratedTerminal",
+				django = true,
 			},
 		}
 	end,

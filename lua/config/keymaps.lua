@@ -22,6 +22,10 @@ setmap("n", "<C-w>", "<Cmd>BufferLineCloseOther<CR>")
 setmap("n", "sc", "<C-w>c") -- 关闭当前窗口
 setmap("n", "so", "<C-w>o") -- 关闭其他窗口
 -- alt + hjkl 在窗口之间跳转
+setmap("n", "<A-left>", "<C-w>h")
+setmap("n", "<A-down>", "<C-w>j")
+setmap("n", "<A-up>", "<C-w>k")
+setmap("n", "<A-right>", "<C-w>l")
 setmap("n", "<A-h>", "<C-w>h")
 setmap("n", "<A-j>", "<C-w>j")
 setmap("n", "<A-k>", "<C-w>k")
