@@ -9,11 +9,12 @@ local M = {
 	config = function()
 		local wk = require("which-key")
 		wk.register({
-            ["<leader>m"] = {name = "+markdown?"},
+			["<leader>m"] = { name = "+markdown?" },
 			["<leader>mk"] = {
 				name = "+markdown",
 				s = { "<Cmd>MarkdownPreview<CR>", "markdown server start" },
 				t = { "<Cmd>MarkdownPreviewStop<CR>", "markdown server stop" },
+				l = { "<Cmd>MarkdownPreviewToggle<CR>", "markdown server toggle" },
 			},
 		})
 	end,

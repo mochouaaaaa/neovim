@@ -24,6 +24,10 @@ setmap("v", "J", ":m '>+1<CR>gv=gv")
 setmap("v", "K", ":m '<-2<CR>gv=gv")
 setmap("v", "H", "<gv")
 setmap("v", "L", ">gv")
+setmap("v", "<S-down>", ":m '>+1<CR>gv=gv")
+setmap("v", "<S-up>", ":m '<-2<CR>gv=gv")
+setmap("v", "<S-left>", "<gv")
+setmap("v", "<S-right>", ">gv")
 
 -- 正常模式
 -- 窗口
