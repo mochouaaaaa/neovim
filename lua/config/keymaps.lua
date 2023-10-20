@@ -26,14 +26,14 @@ setmap("v", "H", "<gv")
 setmap("v", "L", ">gv")
 setmap("v", "<S-down>", ":m '>+1<CR>gv=gv")
 setmap("v", "<S-up>", ":m '<-2<CR>gv=gv")
-setmap("v", "<S-left>", "<gv")
-setmap("v", "<S-right>", ">gv")
+setmap("v", "<S-Tab>", "<gv")
+setmap("v", "<Tab>", ">gv")
 
 -- 正常模式
 -- 窗口
 setmap("n", "<leader>|", "<C-w>v") -- 垂直新增窗口
 setmap("n", "<leader>_", "<C-w>s") -- 水平新增窗口
-setmap("n", "<C-w>", "<Cmd>BufferLineCloseOther<CR>")
+-- setmap("n", "<C-w>", "<Cmd>BufferLineCloseOther<CR>")
 setmap("n", "sc", "<C-w>c") -- 关闭当前窗口
 setmap("n", "so", "<C-w>o") -- 关闭其他窗口
 -- alt + hjkl 在窗口之间跳转

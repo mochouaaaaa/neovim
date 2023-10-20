@@ -1,4 +1,6 @@
-vim.g.mapleader = " " -- 主键
+vim.g.mapleader = " "
+vim.g.maplocalleader = " "
+
 -- 0.9 版本开始自带缓存加速
 vim.loader.enable()
 
@@ -15,12 +17,6 @@ if not vim.loop.fs_stat(lazypath) then
 end
 
 vim.opt.rtp:prepend(lazypath)
-
--- local M = require 'lazy.view.config'
--- M.keys.hover = 'gh'
--- local install = M.commands.install
--- install.key = 'Y'
--- install.key_plugin = 'y'
 
 require("lazy").setup({
 	spec = {
