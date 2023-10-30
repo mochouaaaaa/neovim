@@ -2,8 +2,20 @@ local M = {
 	"akinsho/bufferline.nvim",
 	version = "*",
 	event = "VeryLazy",
-	dependencies = "nvim-tree/nvim-web-devicons",
+	dependencies = { "nvim-tree/nvim-web-devicons", "kazhala/close-buffers.nvim" },
 	opts = function()
+		require("close_buffers").setup({
+			preserve_window_layout = { "this" },
+			next_buffer_cmd = function(windows)
+				require("bufferline").cycle(1)
+				local bufnr = vim.api.nvim_get_current_buf()
+
+				for _, window in ipairs(windows) do
+					vim.api.nvim_win_set_buf(window, bufnr)
+				end
+			end,
+		})
+
 		return {
 			highlights = require("catppuccin.groups.integrations.bufferline").get(),
 			options = {
@@ -34,11 +46,8 @@ local M = {
 }
 
 M.keys = {
-	-- { "<C-->", "<Cmd>BufferLineMovePrev<CR>", desc = "Move Buffer to Left" },
-	-- { "<C-=>", "<Cmd>BufferLineMoveNext<CR>", desc = "Move Buffer to Right" },
-	{ "<Leader>bd", "<Cmd>BufferLinePickClose<CR>", desc = "Pick a Buffer to delete" },
-	{ "<leader>bp", "<Cmd>BufferLineTogglePin<CR>" },
-	{ "<leader>bP", "<Cmd>BufferLineGroupClose ungrouped<CR>" },
+	{ "<A-w>", ":BDelete this<CR>", desc = "close current buffer" },
+	{ "<A-o>", "<Cmd>BufferLineCloseOthers<CR>", desc = "close all other visible buffers" },
 	-- 左右切换
 	{ "<S-h>", "<Cmd>BufferLineCyclePrev<CR>" },
 	{ "<S-l>", "<Cmd>BufferLineCycleNext<CR>" },
