@@ -20,22 +20,6 @@ M.keys = {
 		end,
 		desc = "Flash Jump",
 	},
-	{
-		"S",
-		mode = { "n", "x", "o" },
-		function()
-			require("flash").treesitter()
-		end,
-		desc = "Flash Treesitter Search",
-	},
-	{
-		"R",
-		mode = { "o", "x" },
-		function()
-			require("flash").treesitter_search()
-		end,
-		desc = "Flash Treesitter Search",
-	},
 }
 
 M.opts = {}

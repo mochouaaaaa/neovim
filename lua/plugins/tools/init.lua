@@ -23,8 +23,15 @@ return {
 	{
 		"numToStr/Comment.nvim",
 		config = function()
-			-- gcc和gc注释
-			require("Comment").setup()
+			-- gcc和gc注释修改为C-/
+			require("Comment").setup({
+				toggler = {
+					line = "<M-/>",
+				},
+				opleader = {
+					line = "<M-/>",
+				},
+			})
 		end,
 	},
 	{
