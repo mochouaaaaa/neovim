@@ -19,7 +19,7 @@ function M.config()
 	--ft("go"):fmt("lsp"):append("golines"):lint("golangci")
 	ft("go"):fmt("lsp"):append("golines")
 
-	ft("python"):fmt("black"):lint("pylint")
+	ft("python"):fmt("black"):append("isort"):lint("pylint")
 	-- multiple files register
 	ft("typescript,javascript,typescriptreact"):fmt("prettier")
 

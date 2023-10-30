@@ -13,12 +13,12 @@ return {
 				},
 				typeCheckingMode = "on",
 			},
-			sortImports = {
-				path = "/Volumes/Code/tools/.pyenv/shims/isort",
-			},
-			formatting = {
-				blackPath = "/Volumes/Code/tools/.pyenv/shims/black",
-			},
+			-- sortImports = {
+			-- 	path = "/Volumes/Code/tools/.pyenv/shims/isort",
+			-- },
+			-- formatting = {
+			-- 	blackPath = "/Volumes/Code/tools/.pyenv/shims/black",
+			-- },
 			inlayHints = {
 				functionReturnTypes = true,
 				variableTypes = true,
