@@ -41,12 +41,12 @@ return {
 		desc = "[] Check out all highlights",
 	},
 	{
-		"<leader>tgg",
+		"<leader>tg",
 		"<Cmd>Telescope git_files<CR>",
 		desc = "[]Search Git File",
 	},
 	{
-		"<leader>tgf",
+		"<C-S-f>",
 		-- "<Cmd>Telescope live_grep<CR>",
 		function()
 			require("telescope.builtin").live_grep({ additional_args = extr_args })
@@ -76,7 +76,7 @@ return {
 		desc = "find buffers",
 	},
 	{
-		"<leader>tre",
+		"<leader>tag",
 		"<Cmd>Telescope treesitter<CR>",
 		desc = "滑Have a look at the tags provided by 滑",
 	},

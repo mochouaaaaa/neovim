@@ -1,5 +1,5 @@
 local function memory_use()
-	local use = (1 - (vim.loop.get_free_memory() / vim.loop.get_total_memory())) * 100
+	local use = (1 - (vim.uv.get_free_memory() / vim.uv.get_total_memory())) * 100
 	return (" Memory: %.2f"):format(use) .. " %%"
 end
 
@@ -8,7 +8,8 @@ local function opts()
 		lualine_a = {
 			{
 				function()
-					return " " .. os.date("%A %H:%M")
+					-- return " " .. os.date("%A %H:%M")
+					return "吾日三省"
 				end,
 				separator = { left = "", right = "" },
 				right_padding = 2,
@@ -60,7 +61,7 @@ local function opts()
 				},
 			},
 			{ "fancy_diff" },
-			{ "fancy_diagnostics" },
+			{ "fancy_diagnostics", separator = { right = "" }, right_padding = 2 },
 		},
 
 		lualine_c = {

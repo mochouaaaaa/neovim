@@ -19,7 +19,8 @@ local function init_keys()
 	wk.register({
 		["<leader>e"] = {
 			name = "+neo-tree",
-			e = { "<Cmd>Neotree toggle<CR>", "📁Toggle File Explorer" },
+			"<Cmd>Neotree toggle<CR>",
+			"📁Toggle File Explorer",
 			b = { "<Cmd>Neotree buffers<CR>", "📁Neo-tree Buffers" },
 			g = { "<Cmd>Neotree git_status<CR>", "📁Neo-tree Git Status" },
 			d = {

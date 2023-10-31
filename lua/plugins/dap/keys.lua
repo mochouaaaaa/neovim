@@ -12,9 +12,16 @@ M.keys = {
 	{
 		"<leader>db",
 		function()
-			require("dap").set_breakpoint()
+			require("dap").toggle_breakpoint()
 		end,
 		desc = "set debug point",
+	},
+	{
+		"<leader>dbc",
+		function()
+			require("dap").clear_breakpoints()
+		end,
+		desc = "clear all points",
 	},
 }
 
