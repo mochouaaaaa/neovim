@@ -1,3 +1,60 @@
+local ts_langs = {
+	-- https://github.com/nvim-treesitter/nvim-treesitter#supported-languages
+	"bash",
+	"c",
+	"cmake",
+	"comment",
+	"cpp",
+	"css",
+	"dart",
+	"diff",
+	"dockerfile",
+	"fish",
+	"git_rebase",
+	"gitattributes",
+	"gitcommit",
+	"gitignore",
+	"go",
+	"gomod",
+	"gosum",
+	"gowork",
+	"graphql",
+	"html",
+	"ini",
+	"java",
+	"javascript",
+	"json",
+	"json5",
+	"jsonc",
+	"kdl",
+	"latex",
+	"lua",
+	"luap",
+	"make",
+	"markdown",
+	"markdown_inline",
+	"nix",
+	"php",
+	"pug",
+	"prisma",
+	"python",
+	"regex",
+	"ruby",
+	"rust",
+	"scss",
+	"smali",
+	"sql",
+	"svelte",
+	"swift",
+	"toml",
+	"tsx",
+	"typescript",
+	"vim",
+	"vue",
+	"yaml",
+	"zig",
+}
+
 return {
 	{
 		"HiPhish/rainbow-delimiters.nvim",
@@ -32,7 +89,7 @@ return {
 		lazy = true,
 		event = { "User FileOpened" },
 		cmd = "TSContextToggle",
-		ft = { "lua", "go", "python" },
+		-- ft = { "lua", "go", "python" },
 		config = function()
 			require("treesitter-context").setup({
 				enable = true, -- Enable this plugin (Can be enabled/disabled later via commands)
@@ -106,32 +163,24 @@ return {
 		"nvim-treesitter/nvim-treesitter",
 		build = ":TSUpdate",
 		event = { "BufReadPost", "BufNewFile" },
-		dependencies = { "nvim-treesitter/nvim-treesitter-textobjects" },
-		opts = function(_, opts)
-			-- vim.list_extend(opts.ensure_installed, {
-			-- 	"go",
-			-- 	"gomod",
-			-- 	"gowork",
-			-- 	"gosum",
-			-- })
-		end,
+		dependencies = { "windwp/nvim-ts-autotag", "nvim-treesitter/nvim-treesitter-textobjects" },
+		-- opts = function(_, opts)
+		-- vim.list_extend(opts.ensure_installed, {
+		-- 	"go",
+		-- 	"gomod",
+		-- 	"gowork",
+		-- 	"gosum",
+		-- })
+		-- end,
 		config = function()
 			require("nvim-treesitter.configs").setup({
-				ensure_installed = {
-					"bash",
-					"lua",
-					"ninja",
-					"python",
-					"go",
-					"rst",
-					"toml",
-					"vim",
-					"cpp",
-					"c",
-				},
+				ensure_installed = ts_langs,
 				sync_install = false,
 				auto_install = true,
 				highlight = { enable = true },
+				autotag = {
+					enable = true,
+				},
 				rainbow = {
 					enable = true,
 					-- disable = { "jsx", "cpp" }, list of languages you want to disable the plugin for

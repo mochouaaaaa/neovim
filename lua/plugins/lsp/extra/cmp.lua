@@ -2,6 +2,38 @@ local M = {
 	"hrsh7th/nvim-cmp",
 	event = { "InsertEnter", "CmdlineEnter" },
 	dependencies = {
+		{
+			"zbirenbaum/copilot.lua",
+			cmd = "Copilot",
+			event = "InsertEnter",
+			config = function()
+				require("copilot").setup({
+					suggestion = { enabled = false },
+					panel = { enabled = false, auto_refresh = false },
+				})
+
+				-- hide copilot suggestions when cmp menu is open
+				-- to prevent odd behavior/garbled up suggestions
+				local cmp_status_ok, cmp = pcall(require, "cmp")
+				if cmp_status_ok then
+					cmp.event:on("menu_opened", function()
+						vim.b.copilot_suggestion_hidden = true
+					end)
+
+					cmp.event:on("menu_closed", function()
+						vim.b.copilot_suggestion_hidden = false
+					end)
+				end
+			end,
+		},
+		{
+			"zbirenbaum/copilot-cmp",
+			event = { "InsertEnter", "LspAttach" },
+			fix_pairs = true,
+			config = function()
+				require("copilot_cmp").setup()
+			end,
+		},
 		"hrsh7th/cmp-buffer",
 		"hrsh7th/cmp-nvim-lsp",
 		"hrsh7th/cmp-path",
@@ -23,10 +55,13 @@ local M = {
 }
 
 local default_source = {
+	-- Copilot source
+	{ name = "copilot", group_index = 2 },
+	-- Other source
 	{ name = "luasnip", group_index = 1, max_item_count = 4 },
 	{ name = "nvim_lsp", group_index = 1 },
 	{ name = "cmp_tabnine", group_index = 2, max_item_count = 5 },
-	{ name = "buffer", group_index = 2, max_item_count = 5 },
+	{ name = "buffer", priority = 99, group_index = 2, max_item_count = 5 },
 	{ name = "path" },
 	{ name = "emoji", priority = 50 },
 	{ name = "nvim_lsp_signature_help", priority = 50 },
@@ -39,13 +74,20 @@ function M.config()
 	end
 
 	local luasnip = require("luasnip")
-	local has_words_before = function()
-		local line, col = table.unpack(vim.api.nvim_win_get_cursor(0))
-		return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
-	end
+	-- local has_words_before = function()
+	-- 	local line, col = table.unpack(vim.api.nvim_win_get_cursor(0))
+	-- 	return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+	-- end
 
 	require("luasnip.loaders.from_vscode").lazy_load()
 
+	local has_words_before = function()
+		if vim.api.nvim_buf_get_option(0, "buftype") == "prompt" then
+			return false
+		end
+		local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+		return col ~= 0 and vim.api.nvim_buf_get_text(0, line - 1, 0, line - 1, col, {})[1]:match("^%s*$") == nil
+	end
 	cmp.setup({
 		enabled = function()
 			if
@@ -78,6 +120,7 @@ function M.config()
 		preselect = cmp.PreselectMode.Item,
 		sorting = {
 			comparators = {
+				require("copilot_cmp.comparators").prioritize,
 				-- cmp.config.compare.sort_text,
 				-- cmp.config.compare.score,
 				-- cmp.config.compare.recently_used,
@@ -127,6 +170,7 @@ function M.config()
 					Robot = "󱚤",
 					Smiley = " ",
 					Note = " ",
+					Copilot = "",
 				}
 				local meta_type = vim_item.kind
 				-- load lspkind icons
@@ -151,6 +195,7 @@ function M.config()
 					path = "[Path]",
 					luasnip = "[LuaSnip]",
 					cmp_tabnine = "[TN]",
+					copilot = "[Cop]",
 					emoji = "[Emoji]",
 					look = "[Dict]",
 				})[entry.source.name]
@@ -162,24 +207,26 @@ function M.config()
 			["<C-b>"] = cmp.mapping.scroll_docs(-4),
 			["<C-f>"] = cmp.mapping.scroll_docs(4),
 			["<CR>"] = cmp.mapping.confirm({ select = true }),
-			["<C-c"] = cmp.mapping({
+			["<C-e"] = cmp.mapping({
 				i = cmp.mapping.abort(),
 				c = cmp.mapping.close(),
 			}),
-			["<Tab>"] = cmp.mapping(function(fallback)
-				if cmp.visible() then
-					cmp.select_next_item()
+			-- ["<Tab>"] = cmp.mapping(function(fallback)
+			["<Tab>"] = vim.schedule_wrap(function(fallback)
+				if cmp.visible() and has_words_before() then
+					cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
 					-- You could replace the expand_or_jumpable() calls with expand_or_locally_jumpable()
 					-- they way you will only jump inside the snippet region
-				elseif luasnip.expand_or_jumpable() then
-					luasnip.expand_or_jump()
+					-- elseif luasnip.expand_or_jumpable() then
+					-- 	luasnip.expand_or_jump()
 				else
 					-- has_words_before()
-					cmp.complete()
+					-- cmp.complete()
+					fallback()
 					-- else
 					-- 	fallback()
 				end
-			end, { "i", "s" }),
+			end),
 
 			["<S-Tab>"] = cmp.mapping(function(fallback)
 				if cmp.visible() then
@@ -191,7 +238,7 @@ function M.config()
 				end
 			end, { "i", "s" }),
 
-			["C-p"] = cmp.mapping({
+			["A-k"] = cmp.mapping({
 				i = function()
 					if cmp.visible() then
 						cmp.select_prev_item()
@@ -201,7 +248,7 @@ function M.config()
 				end,
 			}),
 
-			["C-n"] = cmp.mapping(function()
+			["A-j"] = cmp.mapping(function()
 				if cmp.visible() then
 					cmp.select_next_item()
 				else

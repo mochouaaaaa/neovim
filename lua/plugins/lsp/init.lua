@@ -53,4 +53,5 @@ return {
 	},
 	{ "folke/neodev.nvim" },
 	{ import = "plugins.lsp.extra" },
+	{ import = "plugins.lsp.extra_lang" },
 }

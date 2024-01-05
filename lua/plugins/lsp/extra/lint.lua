@@ -5,7 +5,14 @@ local M = {
 
 function M.config()
 	local lint = require("lint")
-	lint.linters_by_ft = { markdown = { "cspell" } }
+
+	lint.linters_by_ft = {
+		markdown = { "cspell" },
+		javascript = { "eslint_d" },
+		typescript = { "eslint_d" },
+		javascriptreact = { "eslint_d" },
+		typescriptreact = { "eslint_d" },
+	}
 	vim.api.nvim_create_autocmd({ "BufWritePost" }, {
 		desc = "nvim-lint",
 		callback = function()
@@ -23,4 +30,3 @@ function M.config()
 end
 
 return M
-
