@@ -3,8 +3,17 @@
 -- * disable/enabled LazyVim plugins
 -- * override the configuration of LazyVim plugins
 return {
-	{ "christoomey/vim-tmux-navigator" },
+	-- { "christoomey/vim-tmux-navigator" },
+	-- {
+	-- 	"knubie/vim-kitty-navigator",
+	-- 	build = "cp ./*.py ~/.config/kitty/",
+	-- },
 	{
+		"mg979/vim-visual-multi",
+		branch = "master",
+	},
+	{
+		-- 轻松加快 Neovim 启动时间！
 		"nathom/filetype.nvim",
 		lazy = true,
 		event = { "BufRead", "BufNewFile" },
@@ -21,8 +30,7 @@ return {
 		end,
 	},
 	{
-		--         主页：https://github.com/ethanholz/nvim-lastplace
-		-- 简介：自动记忆当前文件位置，在下次打开时定位到上次位置。
+		-- 自动记忆当前文件位置，在下次打开时定位到上次位置。
 		"ethanholz/nvim-lastplace",
 		lazy = true,
 		event = { "User FileOpened" },
@@ -31,34 +39,6 @@ return {
 				lastplace_ignore_buftype = { "quickfix", "nofile", "help" },
 				lastplace_ignore_filetype = { "gitcommit", "gitrebase", "svn", "hgcommit" },
 				lastplace_open_folds = true,
-			})
-		end,
-	},
-	{
-		"folke/trouble.nvim",
-		lazy = true,
-		cmd = { "TroubleToggle", "Trouble", "TroubleRefresh" },
-		config = function()
-			require("trouble").setup()
-		end,
-	},
-	{
-		"rmagatti/goto-preview",
-		lazy = true,
-		keys = { "gp" },
-		config = function()
-			require("goto-preview").setup({
-				width = 120,
-				height = 25,
-				default_mappings = true,
-				debug = false,
-				opacity = nil,
-				post_open_hook = nil,
-				-- You can use "default_mappings = true" setup option
-				-- Or explicitly set keybindings
-				-- vim.cmd("nnoremap gpd <cmd>lua require('goto-preview').goto_preview_definition()<CR>")
-				-- vim.cmd("nnoremap gpi <cmd>lua require('goto-preview').goto_preview_implementation()<CR>")
-				-- vim.cmd("nnoremap gP <cmd>lua require('goto-preview').close_all_win()<CR>")
 			})
 		end,
 	},
@@ -95,26 +75,6 @@ return {
 		event = { "BufRead", "BufNewFile" },
 		config = function()
 			require("smartyank").setup()
-		end,
-	}, -- 将没有使用到的变量进行暗淡处理。
-	{
-		"zbirenbaum/neodim",
-		lazy = true,
-		event = "LspAttach",
-		config = function()
-			require("neodim").setup({
-				alpha = 0.75,
-				blend_color = "#000000",
-				update_in_insert = {
-					enable = true,
-					delay = 100,
-				},
-				hide = {
-					virtual_text = true,
-					signs = false,
-					underline = false,
-				},
-			})
 		end,
 	},
 }
