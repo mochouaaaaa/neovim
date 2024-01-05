@@ -35,62 +35,55 @@ return {
 		end,
 	},
 	{
+		"folke/todo-comments.nvim",
+		dependencies = { "nvim-lua/plenary.nvim" },
+		config = function()
+			require("todo-comments").setup({})
+			vim.keymap.set(
+				"n",
+				"<leader>td",
+				"<Cmd>TodoTelescope<CR>",
+				{ desc = "Search through all project todos with Telescope" }
+			)
+		end,
+	},
+	{
 		"LudoPinelli/comment-box.nvim",
 		keys = {
 			{
 				mode = { "n", "x" },
-				"<leader>rj",
+				"<leader>cbj",
 				"<Cmd>lua require('comment-box').llbox()<CR>",
 				desc = "Comment Left Box",
 			},
 			{
 				mode = { "n", "x" },
-				"<leader>rk",
+				"<leader>cbk",
 				"<Cmd>lua require('comment-box').lcbox()<CR>",
 				desc = "Comment Center Box",
 			},
 			{
 				mode = { "n", "x" },
-				"<leader>rl",
+				"<leader>cbl",
 				"<Cmd>lua require('comment-box').lrbox()<CR>",
 				desc = "Comment Right Box",
 			},
 			{
-				"<leader>ru",
+				"<leader>cbu",
 				"<Cmd>lua require('comment-box').line()<CR>",
 				desc = "Comment Left Line",
 			},
 			{
-				"<leader>ri",
+				"<leader>cbi",
 				"<Cmd>lua require('comment-box').cline()<CR>",
 				desc = "Comment Center Line",
 			},
 			{
-				"<leader>ro",
+				"<leader>cbo",
 				"<Cmd>lua require('comment-box').rline()<CR>",
 				desc = "Comment Right Line",
 			},
 		},
-	},
-	{
-		"sindrets/diffview.nvim",
-		cmd = "DiffviewOpen",
-		keys = {
-			{ "<Leader>dw", "<Cmd>DiffviewToggleFiles<CR>", desc = "Toggle Diff Files" },
-			{ "<Leader>dF", "<Cmd>DiffviewFileHitory %<CR>", desc = "Open Diff History For Current File" },
-		},
-		opts = function()
-			local action = require("diffview.actions")
-			return {
-				keymaps = {
-					file_panel = {
-						["n"] = action.next_entry,
-						["p"] = action.prev_entry,
-						["<leader><leader>"] = action.listing_style,
-					},
-				},
-			}
-		end,
 	},
 	{
 		"kdheepak/lazygit.nvim",
@@ -199,24 +192,7 @@ return {
 		end,
 	},
 	{
-		"CRAG666/code_runner.nvim",
-		keys = {
-			{ "<leader>cr", "<Cmd>RunCode<CR>", desc = "Code Runner" },
-			{ "<leader>cc", "<Cmd>RunClose<CR>", desc = "Code Console Close" },
-		},
-		opts = {
-			mode = "toggleterm",
-			filetype = {
-				python = "python3 -u",
-				go = "go run",
-				cpp = "xmake -r && xmake run $end",
-				lua = "lua",
-				rust = {
-					"cd $dir &&",
-					"rustc $fileName &&",
-					"$dir/$fileNameWithoutExt",
-				},
-			},
-		},
+		"theniceboy/joshuto.nvim",
+		config = function() end,
 	},
 }

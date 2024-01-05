@@ -22,8 +22,6 @@ M.keys = {
 	},
 }
 
-M.opts = {}
-
 function M.config(_, opts)
 	require("flash").setup(opts)
 	local set_hl = api.nvim_set_hl
@@ -38,4 +36,3 @@ function M.config(_, opts)
 end
 
 return M
-
