@@ -1,6 +1,5 @@
 return {
-	{ "navarasu/onedark.nvim" },
-	{ "LazyVim/LazyVim", opts = { colorscheme = "onedark" } },
+	"navarasu/onedark.nvim",
 	config = function()
 		-- Lua
 		require("onedark").setup({
@@ -11,8 +10,8 @@ return {
 			},
 
 			-- Custom Highlights --
-			colors = {}, -- Override default colors
-			highlights = require("plugins.ui.theme.override"), -- Override highlight groups
+			colors = require("plugins.ui.theme.override"), -- Override default colors
+			highlights = {}, -- Override highlight groups
 		})
 		require("onedark").load()
 	end,
