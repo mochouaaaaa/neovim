@@ -164,20 +164,12 @@ return {
 		build = ":TSUpdate",
 		event = { "BufReadPost", "BufNewFile" },
 		dependencies = { "windwp/nvim-ts-autotag", "nvim-treesitter/nvim-treesitter-textobjects" },
-		-- opts = function(_, opts)
-		-- vim.list_extend(opts.ensure_installed, {
-		-- 	"go",
-		-- 	"gomod",
-		-- 	"gowork",
-		-- 	"gosum",
-		-- })
-		-- end,
 		config = function()
 			require("nvim-treesitter.configs").setup({
 				ensure_installed = ts_langs,
 				sync_install = false,
 				auto_install = true,
-				highlight = { enable = true },
+				highlight = { enable = true, additional_vim_regex_highlighting = false },
 				autotag = {
 					enable = true,
 				},

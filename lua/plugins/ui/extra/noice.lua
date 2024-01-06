@@ -167,32 +167,32 @@ for hl, color in pairs({
 end
 
 return {
-	"folke/noice.nvim",
-	event = "VeryLazy",
-	dependencies = {
-		"MunifTanjim/nui.nvim",
-		{
-			"rcarriga/nvim-notify",
-			opts = {
-				-- level = vim.log.levels.INFO,
-				-- stages = 'fade_in_slide_out',
+	{
+		"folke/noice.nvim",
+		event = "VeryLazy",
+		dependencies = {
+			"MunifTanjim/nui.nvim",
+		},
+		opts = opts,
+		config = function(_, opt)
+			require("noice").setup(opt)
+			-- vim.opt.guicursor = 'n-v-c:block,i-ci-ve:ver50,r-cr:hor50,o:hor50,a:blinkwait50-blinkoff30-blinkon50-Cursor/lCursor,sm:block-blinkwait175-blinkoff150-blinkon175F'
+			require("telescope").load_extension("noice")
+		end,
+	},
+	{
+		"rcarriga/nvim-notify",
+		config = function()
+			require("notify").setup({
 				stages = "slide",
-				timeout = 1500,
+				timeout = 1000,
 				icons = {
 					ERROR = "🥵",
 					WARN = "🫢",
 					INFO = "🤔",
 				},
-			},
-		},
+				background_colour = "#000000",
+			})
+		end,
 	},
-	opts = opts,
-	config = function(_, opt)
-		require("noice").setup(opt)
-		vim.keymap.set("c", "<S-Enter>", function()
-			require("noice").redirect(vim.fn.getcmdline())
-		end, { desc = "Redirect Cmdline" })
-		-- vim.opt.guicursor = 'n-v-c:block,i-ci-ve:ver50,r-cr:hor50,o:hor50,a:blinkwait50-blinkoff30-blinkon50-Cursor/lCursor,sm:block-blinkwait175-blinkoff150-blinkon175F'
-		require("telescope").load_extension("noice")
-	end,
 }

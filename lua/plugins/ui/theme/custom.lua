@@ -1,35 +1,52 @@
 return {
 	"catppuccin/nvim",
 	name = "catppuccin",
-	-- event = "VimEnter",
 	priority = 1000,
 	config = function(_, opts)
 		require("catppuccin").setup({
 			-- compile_path = vim.fn.stdpath("cache") .. "/catppuccin",
 			flavour = "mocha",
-			transparent_background = not vim.g.neovide,
+			-- transparent_background = not vim.g.neovide,
+			transparent_background = true,
 			custom_highlights = require("plugins.ui.theme.override"),
-			-- dim_inactive = {
-			--     enabled = true,
-			--     shade = 'dark',
-			--     percentage = 0.15,
-			-- },
+			dim_inactive = {
+				enabled = false,
+				shade = "dark",
+				percentage = 0.15,
+			},
 			integrations = {
 				cmp = true,
 				dashboard = true,
 				flash = true,
-				notify = false,
-				neotree = false,
-				noice = false,
+				notify = true,
+				noice = true,
+				neotree = true,
 				gitsigns = true,
 				markdown = true,
 				headlines = true,
 				telekasten = true,
 				ts_rainbow2 = true,
 				lsp_trouble = true,
-				lsp_saga = false,
-				native_lsp = { enabled = true },
-
+				lsp_saga = true,
+				native_lsp = {
+					enabled = true,
+					virtual_text = {
+						errors = { "italic" },
+						hints = { "italic" },
+						warnings = { "italic" },
+						information = { "italic" },
+					},
+					underlines = {
+						errors = { "underline" },
+						hints = { "underline" },
+						warnings = { "underline" },
+						information = { "underline" },
+					},
+					inlay_hints = {
+						background = true,
+					},
+				},
+				rainbow_delimiters = true,
 				treesitter = true,
 				treesitter_context = true,
 				telescope = {
@@ -44,9 +61,10 @@ return {
 				--     enable = true,
 				--     colored_indent_levels = true,
 				-- },
+				window_picker = true,
+				which_key = true,
 			},
 		})
-		vim.g.lightline = { "catppuccin" }
 		vim.cmd.colorscheme("catppuccin")
 	end,
 }

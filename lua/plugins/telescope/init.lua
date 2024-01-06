@@ -123,7 +123,8 @@ local config = function()
 				}),
 			},
 			project = {
-				theme = "dropdown",
+				-- theme = "dropdown",
+				theme = "catppuccin",
 				hidden_files = false,
 			},
 			fzf = {
