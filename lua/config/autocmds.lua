@@ -1,3 +1,12 @@
+-- copilot proxy
+local ok, _ = pcall(require, "copilot")
+if ok then
+	vim.g.copilot_proxy = false
+end
+
+vim.cmd([[let &t_Cs = "\e[4:3m]"]])
+vim.cmd([[let &t_Ce = "\e[4:0m]"]])
+
 vim.api.nvim_create_autocmd("LspAttach", {
 	group = vim.api.nvim_create_augroup("lsp_attach_auto_diag", { clear = true }),
 	callback = function(args)
@@ -23,4 +32,3 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		})
 	end,
 })
-
