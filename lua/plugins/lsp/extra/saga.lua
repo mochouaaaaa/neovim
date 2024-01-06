@@ -30,7 +30,7 @@ M.keys = {
 function M.config()
 	require("lspsaga").setup({
 		ui = {
-			-- require("catppuccin.groups.integrations.lsp_saga").custom_kind(),
+			kind = require("catppuccin.groups.integrations.lsp_saga").custom_kind(),
 		},
 		diagnostic = {
 			on_insert = true,
@@ -58,8 +58,8 @@ function M.config()
 			keys = {
 				jump_to = "g",
 				expand_or_jump = "o",
-				vsplit = "vs",
-				split = "vh",
+				vsplit = "|",
+				split = "_",
 				tabe = "t",
 				tabnew = "r",
 				quit = { "q", "<ESC>", "<C-c>" },
@@ -69,8 +69,8 @@ function M.config()
 		definition = {
 			keys = {
 				edit = "o",
-				vsplit = "vs",
-				split = "vh",
+				vsplit = "|",
+				split = "_",
 				tabe = "t",
 				quit = "q",
 				close = "<Esc>",
@@ -98,29 +98,31 @@ function M.config()
 			in_select = true,
 		},
 		outline = {
-			win_position = "left",
+			win_position = "right",
 			win_with = "",
-			win_width = 30,
-			show_detail = true,
+			-- win_width = 30,
+			show_detail = false,
 			auto_preview = true,
 			auto_refresh = true,
 			auto_close = true,
 			custom_sort = nil,
+			close_after_jump = false,
 			keys = {
 				jump = "o",
+				toggle_or_jump = "o",
 				expand_collaspe = "u",
-				quit = "<C-q>",
+				quit = "q",
 			},
 		},
 		callhierarchy = {
 			show_detail = true,
 			keys = {
 				edit = "e",
-				vsplit = "v",
-				split = "s",
+				vsplit = "|",
+				split = "_",
 				tabe = "t",
 				jump = "o",
-				quit = "<C-q>",
+				quit = "q",
 				expand_collaspe = "u",
 			},
 		},
