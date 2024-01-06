@@ -191,11 +191,12 @@ function M.config()
 				end
 				vim_item.menu = ({
 					buffer = "[Buffer]",
-					nvim_lsp = meta_type,
+					-- nvim_lsp = meta_type,
+					nvim_lsp = "[LSP]",
 					path = "[Path]",
 					luasnip = "[LuaSnip]",
 					cmp_tabnine = "[TN]",
-					copilot = "[Cop]",
+					copilot = "[Copilot]",
 					emoji = "[Emoji]",
 					look = "[Dict]",
 				})[entry.source.name]
@@ -238,23 +239,17 @@ function M.config()
 				end
 			end, { "i", "s" }),
 
-			["A-k"] = cmp.mapping({
-				i = function()
-					if cmp.visible() then
-						cmp.select_prev_item()
-					else
-						cmp.mapping.complete()()
-					end
-				end,
-			}),
-
-			["A-j"] = cmp.mapping(function()
-				if cmp.visible() then
-					cmp.select_next_item()
-				else
-					cmp.mapping.complete()()
-				end
-			end, { "i", "c" }),
+			-- ["A-k"] = cmp.mapping({
+			-- 	i = function()
+			-- 		if cmp.visible() then
+			-- 			cmp.select_prev_item()
+			-- 		else
+			-- 			cmp.mapping.complete()()
+			-- 		end
+			-- 	end,
+			-- }),
+			["A-k"] = cmp.mapping.select_prev_item(),
+			["A-j"] = cmp.mapping.select_next_item(),
 		}),
 		-- You can set mappings if you want
 		-- mapping = insert_map,

@@ -77,6 +77,7 @@ function M.config()
 			},
 		},
 		code_action = {
+			extend_gitsigns = true,
 			num_shortcut = true,
 			keys = {
 				quit = "q",

@@ -53,6 +53,12 @@ return {
 				mode = { "n" },
 				desc = "this file diagnostics",
 			},
+			{
+				"<leader>xg",
+				"<CMD>Gitsigns setqflist<CR>",
+				mode = { "n" },
+				desc = "this file git change",
+			},
 		},
 	},
 }

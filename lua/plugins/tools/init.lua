@@ -90,6 +90,7 @@ return {
 		dependencies = {
 			"nvim-telescope/telescope.nvim",
 			"nvim-lua/plenary.nvim",
+			"sindrets/diffview.nvim",
 		},
 		config = function()
 			require("telescope").load_extension("lazygit")
@@ -107,7 +108,52 @@ return {
 		event = { "BufReadPre", "BufNewFile" },
 
 		config = function()
-			require("gitsigns").setup({
+			local gitsigns = require("gitsigns")
+			local gs = package.loaded.gitsigns
+			gitsigns.setup({
+				on_attach = function(bufnr)
+					local wk = require("which-key")
+					local keys = {
+						["<leader>g"] = {
+							name = "Git Manager",
+							p = {
+								function()
+									-- first call, second entry
+									gitsigns.preview_hunk()
+									gitsigns.preview_hunk()
+								end,
+								"Preview hunk",
+							},
+							r = { gitsigns.reset_hunk, "Revert hunk" },
+							U = {
+
+								gitsigns.undo_stage_hunk,
+								"Undo stage file",
+							},
+							["["] = { gitsigns.prev_hunk, "Previous hunk" },
+							["]"] = { gitsigns.next_hunk, "Next hunk" },
+						},
+					}
+					local visual = {
+						["<leader>g"] = {
+							a = {
+								function()
+									gs.stage_hunk({ vim.fn.line("."), vim.fn.line("v") })
+								end,
+								"Stage hunk",
+							},
+							r = {
+								function()
+									gs.reset_hunk({ vim.fn.line("."), vim.fn.line("v") })
+								end,
+								"undo reset hunk",
+							},
+						},
+					}
+					wk.register(keys, { bufnr = bufnr })
+					wk.register(visual, { mode = "v" })
+				end,
+
 				signs = {
 					add = {
 						hl = "GitSignsAdd",
