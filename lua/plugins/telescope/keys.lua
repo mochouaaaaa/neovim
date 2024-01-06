@@ -46,7 +46,7 @@ return {
 		desc = "[]Search Git File",
 	},
 	{
-		"<C-S-f>",
+		"<D-S-f>",
 		-- "<Cmd>Telescope live_grep<CR>",
 		function()
 			require("telescope.builtin").live_grep({ additional_args = extr_args })
@@ -54,7 +54,7 @@ return {
 		desc = " Search text in cucurrent directory",
 	},
 	{
-		"<C-f>",
+		"<D-f>",
 		-- "<Cmd>Telescope find_files<CR>",
 		function()
 			require("telescope.builtin").find_files({

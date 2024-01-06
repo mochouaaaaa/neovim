@@ -1,28 +1,3 @@
-local M = {
-	{
-		"nvim-telescope/telescope.nvim",
-		cmd = "Telescope",
-		dependencies = {
-			{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" }, -- fuzzy finder
-			{
-				"nvim-lua/plenary.nvim",
-				keys = { { ";t", "<Plug>PlenaryTestFile", desc = "Test Plugin" } },
-			},
-		},
-		import = "plugins.telescope.extra",
-		config = config,
-		keys = require("plugins.telescope.keys"),
-	},
-	{
-		"prochri/telescope-all-recent.nvim",
-		lazy = true,
-		opts = {},
-	},
-	{
-		import = "plugins.telescope.load_extension"
-	}
-}
-
 local config = function()
 	local telescope = require("telescope")
 	local actions = require("telescope.actions")
@@ -41,11 +16,11 @@ local config = function()
 			-- winblend = 0,
 			mappings = {
 				i = {
-					["<C-n>"] = actions.cycle_history_next,
-					["<C-p>"] = actions.cycle_history_prev,
+					["<A-j>"] = actions.cycle_history_next,
+					["<A-k>"] = actions.cycle_history_prev,
 
-					["<C-j>"] = actions.move_selection_next,
-					["<C-k>"] = actions.move_selection_previous,
+					-- ["<C-j>"] = actions.move_selection_next,
+					-- ["<C-k>"] = actions.move_selection_previous,
 
 					["<C-c>"] = actions.close,
 					--
@@ -57,8 +32,8 @@ local config = function()
 					["<C-v>"] = actions.select_vertical,
 					["<C-t>"] = actions.select_tab,
 
-					["<C-u>"] = actions.preview_scrolling_up,
-					["<C-d>"] = actions.preview_scrolling_down,
+					["<C-k>"] = actions.preview_scrolling_up,
+					["<C-j>"] = actions.preview_scrolling_down,
 
 					["<PageUp>"] = actions.results_scrolling_up,
 					["<PageDown>"] = actions.results_scrolling_down,
@@ -95,8 +70,8 @@ local config = function()
 					["gg"] = actions.move_to_top,
 					["G"] = actions.move_to_bottom,
 
-					["<C-u>"] = actions.preview_scrolling_up,
-					["<C-d>"] = actions.preview_scrolling_down,
+					["<A-k>"] = actions.preview_scrolling_up,
+					["<A-j>"] = actions.preview_scrolling_down,
 
 					["<PageUp>"] = actions.results_scrolling_up,
 					["<PageDown>"] = actions.results_scrolling_down,
@@ -164,5 +139,30 @@ local config = function()
 	telescope.load_extension("projects")
 	require("telescope-all-recent")
 end
+
+local M = {
+	{
+		"nvim-telescope/telescope.nvim",
+		cmd = "Telescope",
+		dependencies = {
+			{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" }, -- fuzzy finder
+			{
+				"nvim-lua/plenary.nvim",
+				keys = { { ";t", "<Plug>PlenaryTestFile", desc = "Test Plugin" } },
+			},
+		},
+		import = "plugins.telescope.extra",
+		config = config,
+		keys = require("plugins.telescope.keys"),
+	},
+	{
+		"prochri/telescope-all-recent.nvim",
+		lazy = true,
+		opts = {},
+	},
+	{
+		import = "plugins.telescope.load_extension",
+	},
+}
 
 return M
