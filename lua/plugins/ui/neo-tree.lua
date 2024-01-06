@@ -1,5 +1,16 @@
 local M = {
 	"nvim-neo-tree/neo-tree.nvim",
+	dependencies = {
+		{
+			"s1n7ax/nvim-window-picker",
+			name = "window-picker",
+			event = "VeryLazy",
+			version = "2.*",
+			config = function()
+				require("window-picker").setup()
+			end,
+		},
+	},
 	init = function()
 		-- Unless you are still migrating, remove the deprecated commands from v1.x
 		vim.g.neo_tree_remove_legacy_commands = 1
@@ -11,7 +22,7 @@ local M = {
 			end
 		end
 	end,
-	-- cmd = "Neotree",
+	cmd = "Neotree",
 }
 
 local function init_keys()
@@ -19,7 +30,6 @@ local function init_keys()
 	wk.register({
 		["<leader>e"] = {
 			name = "+neo-tree",
-			"<Cmd>Neotree toggle<CR>",
 			"📁Toggle File Explorer",
 			b = { "<Cmd>Neotree buffers<CR>", "📁Neo-tree Buffers" },
 			g = { "<Cmd>Neotree git_status<CR>", "📁Neo-tree Git Status" },
@@ -32,6 +42,8 @@ local function init_keys()
 end
 
 function M.opts()
+	-- mac system cmd keymap
+	vim.api.nvim_set_keymap("n", "<D-e>", "<Cmd>Neotree toggle<CR>", {})
 	init_keys()
 	-- NOTE :
 	-- Use `lua require"neo-tree".paste_default_config()` to get the default config
@@ -66,7 +78,7 @@ function M.opts()
 		popup_border_style = "rounded", -- "double", "none", "rounded", "shadow", "single" or "solid"
 		resize_timer_interval = 500, -- in ms, needed for containers to redraw right aligned and faded content
 		-- set to -1 to disable the resize timer entirely
-		--                           -- NOTE: this will speed up to 50 ms for 1 second following a resize
+		-- NOTE: this will speed up to 50 ms for 1 second following a resize
 		sort_case_insensitive = false, -- used when sorting files and directories in the tree
 		sort_function = nil, -- uses a custom function for sorting files and directories in the tree
 		use_popups_for_input = true, -- If false, inputs will use vim.ui.input() instead of custom floats.
@@ -116,75 +128,6 @@ function M.opts()
 			highlight_separator = "NeoTreeTabSeparatorInactive",
 			highlight_separator_active = "NeoTreeTabSeparatorActive",
 		},
-		--
-		--event_handlers = {
-		--  {
-		--    event = "before_render",
-		--    handler = function (state)
-		--      -- add something to the state that can be used by custom components
-		--    end
-		--  },
-		--  {
-		--    event = "file_opened",
-		--    handler = function(file_path)
-		--      --auto close
-		--      require("neo-tree").close_all()
-		--    end
-		--  },
-		--  {
-		--    event = "file_opened",
-		--    handler = function(file_path)
-		--      --clear search after opening a file
-		--      require("neo-tree.sources.filesystem").reset_search()
-		--    end
-		--  },
-		--  {
-		--    event = "file_renamed",
-		--    handler = function(args)
-		--      -- fix references to file
-		--    end
-		--  },
-		--  {
-		--    event = "file_moved",
-		--    handler = function(args)
-		--      -- fix references to file
-		--    end
-		--  },
-		--  {
-		--    event = "neo_tree_buffer_enter",
-		--    handler = function()
-		--      vim.cmd 'highlight! Cursor blend=100'
-		--    end
-		--  },
-		--  {
-		--    event = "neo_tree_buffer_leave",
-		--    handler = function()
-		--      vim.cmd 'highlight! Cursor guibg=#5f87af blend=0'
-		--    end
-		--  },
-		-- {
-		--   event = "neo_tree_window_before_open",
-		--   handler = function(args)
-		--   end
-		-- },
-		-- {
-		--   event = "neo_tree_window_after_open",
-		--   handler = function(args)
-		--     vim.cmd("wincmd =")
-		--   end
-		-- },
-		-- {
-		--   event = "neo_tree_window_before_close",
-		--   handler = function(args)
-		--   end
-		-- },
-		-- {
-		--   event = "neo_tree_window_after_close",
-		--   handler = function(args)
-		--     vim.cmd("wincmd =")
-		--   end
-		-- }
-		--},
 		default_component_configs = {
 			container = {
 				enable_character_fade = true,
@@ -354,12 +297,12 @@ function M.opts()
 				["<esc>"] = "revert_preview",
 				["P"] = { "toggle_preview", config = { use_float = true } },
 				["l"] = "focus_preview",
-				["O"] = "open_split",
-				["S"] = "split_with_window_picker",
-				["U"] = "open_vsplit",
-				["s"] = "vsplit_with_window_picker",
-				["t"] = "open_tabnew",
-				["w"] = "open_with_window_picker",
+				["_"] = "open_split",
+				-- ["S"] = "split_with_window_picker",
+				["|"] = "open_vsplit",
+				-- ["s"] = "vsplit_with_window_picker",
+				-- ["t"] = "open_tabnew",
+				-- ["w"] = "open_with_window_picker",
 				["C"] = "close_node",
 				["z"] = "close_all_nodes",
 				["Z"] = "expand_all_nodes",
@@ -371,7 +314,6 @@ function M.opts()
 						show_path = "none", -- "none", "relative", "absolute"
 					},
 				},
-				["A"] = "add_directory", -- also accepts the config.show_path and config.insert_as options.
 				["d"] = "delete",
 				["r"] = "rename",
 				["y"] = "copy_to_clipboard",
@@ -382,8 +324,6 @@ function M.opts()
 				["e"] = "toggle_auto_expand_width",
 				["q"] = "close_window",
 				["?"] = "show_help",
-				["<"] = "prev_source",
-				[">"] = "next_source",
 			},
 		},
 		filesystem = {
@@ -427,7 +367,7 @@ function M.opts()
 				hide_by_name = {
 					".DS_Store",
 					"thumbs.db",
-					--"node_modules",
+					"node_modules",
 				},
 				hide_by_pattern = { -- uses glob style patterns
 					--"*.meta",
@@ -445,38 +385,6 @@ function M.opts()
 				},
 			},
 			find_by_full_path_words = false, -- `false` means it only searches the tail of a path.
-			-- `true` will change the filter into a full path
-			-- search with space as an implicit ".*", so
-			-- `fi init`
-			-- will match: `./sources/filesystem/init.lua
-			--find_command = "fd", -- this is determined automatically, you probably don't need to set it
-			--find_args = {  -- you can specify extra args to pass to the find command.
-			--  fd = {
-			--  "--exclude", ".git",
-			--  "--exclude",  "node_modules"
-			--  }
-			--},
-			---- or use a function instead of list of strings
-			--find_args = function(cmd, path, search_term, args)
-			--  if cmd ~= "fd" then
-			--    return args
-			--  end
-			--  --maybe you want to force the filter to always include hidden files:
-			--  table.insert(args, "--hidden")
-			--  -- but no one ever wants to see .git files
-			--  table.insert(args, "--exclude")
-			--  table.insert(args, ".git")
-			--  -- or node_modules
-			--  table.insert(args, "--exclude")
-			--  table.insert(args, "node_modules")
-			--  --here is where it pays to use the function, you can exclude more for
-			--  --short search terms, or vary based on the directory
-			--  if string.len(search_term) < 4 and path == "/home/cseickel" then
-			--    table.insert(args, "--exclude")
-			--    table.insert(args, "Library")
-			--  end
-			--  return args
-			--end,
 			group_empty_dirs = true, -- when true, empty folders will be grouped together
 			search_limit = 50, -- max number of search results when using filters
 			follow_current_file = true, -- This will find and focus the file in the active buffer every time
