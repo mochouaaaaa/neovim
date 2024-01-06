@@ -19,10 +19,10 @@ return {
 				dashboard = true,
 				flash = true,
 				notify = false,
-				neotree = true,
+				neotree = false,
+				noice = false,
 				gitsigns = true,
 				markdown = true,
-				telescope = true,
 				headlines = true,
 				telekasten = true,
 				ts_rainbow2 = true,
@@ -32,17 +32,21 @@ return {
 
 				treesitter = true,
 				treesitter_context = true,
+				telescope = {
+					enabled = true,
+				},
 				dropbar = { enabled = true, color_mode = true },
 
 				-- navic              = { enabled = true },
 				-- leap               = true,
-				-- mason = true,
+				mason = true,
 				-- indent_blankline = {
 				--     enable = true,
 				--     colored_indent_levels = true,
 				-- },
 			},
 		})
+		vim.g.lightline = { "catppuccin" }
 		vim.cmd.colorscheme("catppuccin")
 	end,
 }
