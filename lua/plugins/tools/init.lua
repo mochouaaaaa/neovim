@@ -106,8 +106,9 @@ return {
 	{
 		"lewis6991/gitsigns.nvim",
 		event = { "BufReadPre", "BufNewFile" },
-
 		config = function()
+			local socket = require("socket")
+
 			local gitsigns = require("gitsigns")
 			local gs = package.loaded.gitsigns
 			gitsigns.setup({
@@ -120,6 +121,7 @@ return {
 								function()
 									-- first call, second entry
 									gitsigns.preview_hunk()
+									socket.select(nil, nil, 0.2)
 									gitsigns.preview_hunk()
 								end,
 								"Preview hunk",

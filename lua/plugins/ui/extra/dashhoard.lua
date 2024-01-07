@@ -2,11 +2,9 @@ local M = {
 	"glepnir/dashboard-nvim",
 	event = "VimEnter",
 	dependencies = { { "nvim-tree/nvim-web-devicons" } },
-	-- enable = false
 }
 
 function M.config()
-	-- local home = os.getenv("HOME")
 	require("dashboard").setup({
 		-- theme: hyper, doom
 		theme = "hyper",
